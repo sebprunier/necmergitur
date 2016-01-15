@@ -20,5 +20,6 @@ request(options, (err, response, body) => {
         var hospitalCoords = hospitalCoordsLink.split('@')[1].split(',');
 
         console.log(`${hospitalName};${hospitalCoords[0]};${hospitalCoords[1]}`);
+        // console.log(`{"name": "${hospitalName}", "location": [${hospitalCoords[0]},${hospitalCoords[1]}]},`);
     });
 });
