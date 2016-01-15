@@ -1,0 +1,8 @@
+{
+  "name": "necmergitur-scripts",
+  "version": "1.0.0",
+  "description": "NecMergitur - Scripts",
+  "dependencies": {
+      "cheerio": "0.19.0"
+  }
+}
