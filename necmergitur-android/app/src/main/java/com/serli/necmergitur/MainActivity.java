@@ -152,17 +152,17 @@ public class MainActivity extends AppCompatActivity
         priseEnCharge.setGravite("UR");
     }
 
-    @OnClick(R.id.buttonQRCode)
+    @OnClick(R.id.layoutQRCode)
     public void clickQRCode(){
         ActivityUtils.changeActivity(this, QRCodeActivity.class, priseEnCharge);
     }
 
-    @OnClick(R.id.buttonHospitals)
+    @OnClick(R.id.layoutHopital)
     public void clickHospitals(){
         ActivityUtils.changeActivity(this, HospitalsActivity.class, priseEnCharge);
     }
 
-    @OnClick(R.id.buttonInput)
+    @OnClick(R.id.layoutInput)
     public void clickInput(){
         ActivityUtils.changeActivity(this, InputActivity.class,priseEnCharge);
     }
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @OnClick(R.id.buttonPhotos)
+    @OnClick(R.id.layoutPhotos)
     public void clickPhotos(){
         dispatchTakePictureIntent();
     }
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ImageView imageView = new ImageView(this);
             imageView.setImageBitmap(imageBitmap);
-
+            imageView.setPadding(5,5,5,5);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

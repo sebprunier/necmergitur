@@ -17,13 +17,13 @@
     android:id="@+id/parent"
     android:weightSum="1">
 
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:weightSum="1">
+
 
         <Button
             android:layout_width="wrap_content"
@@ -46,112 +46,146 @@
             android:textColor="#ffffff" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.05">
+        android:padding="16dp"
+        android:id="@+id/layoutQRCode">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/qrcode_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Flasher le bracelet du patient"
             android:id="@+id/buttonQRCode"
+            android:layout_toRightOf="@+id/qrcode_icon"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.05">
+        android:padding="16dp"
+        android:id="@+id/layoutHopital">>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hospital_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Veuillez saisir l&apos;hôpital du patient"
             android:id="@+id/buttonHospitals"
+            android:layout_toRightOf="@+id/hospital_icon"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.07" >
-
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="..."
             android:id="@+id/textViewHopitalChoisis"
+            android:layout_toRightOf="@+id/hospital_icon"
+            android:layout_below="@+id/buttonHospitals"
             android:layout_gravity="center_vertical" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.20">
+        android:padding="16dp"
+        android:id="@+id/layoutInput">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/description_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Description complémentaire concernant le patient"
             android:id="@+id/buttonInput"
-            android:layout_gravity="center_vertical" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.05" >
+            android:layout_toRightOf="@+id/description_icon"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_vertical"
+            />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="..."
             android:id="@+id/textViewInput"
+            android:layout_toRightOf="@+id/description_icon"
+            android:layout_below="@+id/buttonInput"
             android:layout_gravity="center_vertical" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.04">
+        android:padding="16dp"
+        android:id="@+id/layoutPhotos">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/photo_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Ajouter des photos"
             android:id="@+id/buttonPhotos"
+            android:layout_toRightOf="@+id/photo_icon"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <ScrollView
+    <HorizontalScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.42" >
+        android:layout_weight="0.42"
+        android:padding="5dp">
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/panelPhotos">
             // all the views currently in your ScrollView
         </LinearLayout>
-    </ScrollView>
+    </HorizontalScrollView>
 
 </LinearLayout>
