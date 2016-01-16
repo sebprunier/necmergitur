@@ -45,7 +45,7 @@ const HopitauxPage = React.createClass({
     },
 
     renderTable() {
-        var hopitaux = this.state.hopitaux;
+        let hopitaux = this.state.hopitaux;
         return (
             <div>
                 {hopitaux.map(hopital => { return (
@@ -71,7 +71,7 @@ const HopitauxPage = React.createClass({
     },
 
     renderMap() {
-        var hopitaux = this.state.hopitaux;
+        let hopitaux = this.state.hopitaux;
         return (
             <section style={{height: "700px"}}>
               <GoogleMapLoader
@@ -89,10 +89,11 @@ const HopitauxPage = React.createClass({
                     defaultZoom={12}
                     defaultCenter={{lat: 48.856638, lng: 2.352241}}>
                     {hopitaux.map((hopital, index) => {
+                        let coords = hopital.location.split(',');
                         let marker = {
                           position: {
-                            lat: hopital.location[0],
-                            lng: hopital.location[1],
+                            lat: parseFloat(coords[0]),
+                            lng: parseFloat(coords[1]),
                           },
                           key: hopital.uuid,
                           title: hopital.name,
