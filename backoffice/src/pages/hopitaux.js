@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react'
 
+import { Link } from 'react-router';
+
 import FontIcon from 'material-ui/lib/font-icon';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
@@ -50,7 +52,11 @@ const HopitauxPage = React.createClass({
                     <Paper key={hopital.uuid} zDepth={1} style={{padding: 8}}>
                         <div className="grid">
                             <div className="1/2 grid__cell">
-                                <p style={{fontWeight: 'bold'}}>{hopital.name}</p>
+                                <p style={{fontWeight: 'bold'}}>
+                                    <Link to={`/hopital/${hopital.uuid}`}>
+                                        {hopital.name}
+                                    </Link>
+                                </p>
                             </div>
                             <div className="1/2 grid__cell">
                                 <div style={{float: 'right', marginTop: 16, marginRight: 16}}>
