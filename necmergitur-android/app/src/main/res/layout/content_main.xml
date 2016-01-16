@@ -85,7 +85,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:padding="16dp"
+                android:padding="5dp"
                 android:id="@+id/layoutHopital"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp">>
@@ -95,9 +95,10 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/hospital_icon"
                     android:layout_alignParentLeft="false"
-                    android:layout_alignParentTop="false"
+                    android:layout_alignParentTop="true"
                     android:layout_marginRight="16dp"
-                    android:layout_centerInParent="true" />
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -105,8 +106,9 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:id="@+id/textViewHopitalChoisis"
                     android:layout_gravity="center_vertical"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentBottom="true" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -118,7 +120,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:padding="16dp"
+                android:padding="5dp"
                 android:id="@+id/layoutInput"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp">
@@ -130,7 +132,8 @@
                     android:layout_alignParentLeft="false"
                     android:layout_alignParentTop="false"
                     android:layout_marginRight="16dp"
-                    android:layout_centerInParent="true" />
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -138,9 +141,10 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:id="@+id/textViewInput"
                     android:layout_gravity="center_vertical"
-                    android:layout_centerInParent="true"
                     android:layout_alignParentStart="false"
-                    android:layout_alignParentBottom="true" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true" />
             </RelativeLayout>
 
             <View

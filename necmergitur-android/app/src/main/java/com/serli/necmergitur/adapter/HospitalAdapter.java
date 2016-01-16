@@ -1,6 +1,7 @@
 package com.serli.necmergitur.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class HospitalAdapter extends ArrayAdapter<Hopital> {
 
         if (hospital != null) {
             TextView tt1 = (TextView) v.findViewById(R.id.rowTextView);
-
+            tt1.setTextColor(Color.DKGRAY);
             if (tt1 != null) {
                 tt1.setText(hospital.getName());
             }
