@@ -14,3 +14,31 @@ a {
     text-decoration: none;
     color: #3F51B5;
 }
+
+/* Transitions */
+.patient-enter {
+  opacity: 0.01;
+}
+
+.patient-enter.patient-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.patient-leave {
+  opacity: 1;
+}
+
+.patient-leave.patient-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.patient-appear {
+  opacity: 0.01;
+}
+
+.patient-appear.patient-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}

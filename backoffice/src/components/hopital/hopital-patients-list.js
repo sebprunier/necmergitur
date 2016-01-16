@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
@@ -14,20 +16,14 @@ const CardStyle = {
 }
 
 const Avatars = {
-    "PMA" : <FontIcon className="material-icons">healing</FontIcon>,
     "Transport" : <FontIcon className="material-icons">local_taxi</FontIcon>,
-    "Arrivé Hopital": <FontIcon className="material-icons">local_hotel</FontIcon>,
-    "Réveil" : <FontIcon className="material-icons">local_hotel</FontIcon>,
-    "Urgence" : <FontIcon className="material-icons">local_hotel</FontIcon>,
+    "Hopital" : <FontIcon className="material-icons">local_hotel</FontIcon>,
     "Sorti" : <FontIcon className="material-icons">directions_walk</FontIcon>
 }
 
 const ActionLabels = {
-    "PMA" : "Valider l'arrivée",
     "Transport" : "Valider l'arrivée",
-    "Arrivé Hopital": "Valider la sortie",
-    "Réveil" : "Valider la sortie",
-    "Urgence" : "Valider la sortie",
+    "Hopital" : "Valider la sortie",
     "Sorti" : "Voir l'historique"
 }
 
@@ -36,25 +32,39 @@ const PatientsList = React.createClass({
     render () {
         let patients = this.props.patients;
         let patientsEtatsFilters = this.props.patientsEtatsFilters;
-        return (
-            <div>
-                {patients.map(patient => {if (patientsEtatsFilters[patient.etat]) return (
-                    <Card key={patient.id} style={CardStyle}>
-                        <CardHeader
-                            title={`SINUS n°${patient.id}`}
-                            subtitle={`[${patient.etat}]`}
-                            avatar={Avatars[patient.etat]}
-                            showExpandableButton={true} />
-                        <CardMedia expandable={true}>
-                            <img src={patient.photos[0]}/>
-                        </CardMedia>
-                        <CardActions>
-                            <FlatButton primary={true} label={ActionLabels[patient.etat]} />
-                        </CardActions>
-                    </Card>
-                )})}
-            </div>
-        )
+        let patientsUrgenceFilter = this.props.patientsUrgenceFilter;
+
+        let filteredPatients = patients.filter(patient => patientsEtatsFilters[patient.etat] && patientsUrgenceFilter[patient.gravite]);
+
+        if (filteredPatients.length <= 0) {
+            return <div style={{textAlign: 'center', marginTop: 32}}>Aucune donnée correspondant aux filtres ...</div>
+        } else {
+            return (
+                <div>
+                    <ReactCSSTransitionGroup transitionName="patient"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={300}
+                        transitionAppear={true}
+                        transitionAppearTimeout={500}>
+                        {filteredPatients.map(patient => {return (
+                            <Card key={patient.id} style={CardStyle}>
+                                <CardHeader
+                                    title={`SINUS n°${patient.id}`}
+                                    subtitle={`[ ${patient.gravite} - ${patient.etat} ]`}
+                                    avatar={Avatars[patient.etat]}
+                                    showExpandableButton={true} />
+                                <CardMedia expandable={true}>
+                                    <img src={patient.photos[0]}/>
+                                </CardMedia>
+                                <CardActions>
+                                    <FlatButton primary={true} label={ActionLabels[patient.etat]} />
+                                </CardActions>
+                            </Card>
+                        )})}
+                    </ReactCSSTransitionGroup>
+                </div>
+            )
+        }
     }
 })
 
