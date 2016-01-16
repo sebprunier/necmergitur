@@ -1,2 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/chriswoodrow/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.0.0-RC1/be7e96331952019f16dc52dce09ab25df29353d7/okhttp-3.0.0-RC1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="be7e96331952019f16dc52dce09ab25df29353d7">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/okhttp-3.0.0-RC1_4e8743842d37313bc3b9c62884a802e5a467aac6.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/exploded-aar/com.dlazaro66.qrcodereaderview/qrcodereaderview/1.0.0/jars/libs/core.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f3c7e89b5124329cddba83bcf7c26c1c636c16b8">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/core_8a8bdb9769eb3f13bd4f82faa66d919f131a5563.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_b76d1b56d22ca29d994c8664db214ec88f6a8ba4.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/okio-1.6.0_b210ca5ea861a69f2c8ff0dc0b4f7013b0ec29ac.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.1.1_20ab449c18a9232a9dea98b74cfd75ef8343f2ef.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/butterknife-7.0.1_2beba3122160e7655d5458ae2295bb7d66f9e69e.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_44a782f11aa8810074f9b4ee42acb1702813e7d1.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_9b007cbac6d8463acccee6ef34111928b05417c6.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/picasso-2.5.2_4a08a8d9e17722f175a56e100dfd5fbf058c0128.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/97675641051febfee098903cc0eff62f2826e34e/retrofit-2.0.0-beta3.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="97675641051febfee098903cc0eff62f2826e34e">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/retrofit-2.0.0-beta3_49e92be9378cc52798c3f637f58eacb757e2f7b9.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_6648976c75c75ee619e755e3f0f675a2ee69c52e.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/exploded-aar/com.journeyapps/zxing-android-embedded/3.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c236cfec8fc080b9ad129d64e634c24deb2e8e95">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/com.journeyapps-zxing-android-embedded-3.1.0_2d517b81e1b64f7bb10c834594d404c0f613ee3c.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_3348675fd041467c31835e00810c7fde0d20759a.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/exploded-aar/com.dlazaro66.qrcodereaderview/qrcodereaderview/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="cd3f0aeca8f8e53d60cad6597e69d5d753fb0360">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/com.dlazaro66.qrcodereaderview-qrcodereaderview-1.0.0_1ed1a6786c4e7b8f421a8afe9e5d220cf522a4a3.jar" />
+    </item>
+    <item
+        jar="/Users/chriswoodrow/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.2.0/e019d15a13a9786f881141d2df6654b8510bce8b/core-3.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e019d15a13a9786f881141d2df6654b8510bce8b">
+        <dex dex="/Users/chriswoodrow/git/necmergitur/necmergitur-android-arrive-hopital/app/build/intermediates/pre-dexed/debug/core-3.2.0_4050b29cad4358df3846654db7f367b2023d4787.jar" />
+    </item>
+
+</items>

@@ -6,7 +6,7 @@ import createHistory from 'history/lib/createHashHistory';
 
 import HopitauxPage from './pages/hopitaux';
 import HopitalPage from './pages/hopital';
-import SecoursPage from './pages/secours';
+import PostesMedicauxAvances from './pages/postes-medicaux-avances';
 import NotFoundPage from './pages/not-found';
 
 import AppBar from 'material-ui/lib/app-bar';
@@ -17,6 +17,8 @@ import FontIcon from 'material-ui/lib/font-icon';
 
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import CustomTheme from './theme/theme'
+
+import CurrentUser from './components/security/current-user'
 
 // Needed for onTouchTap
 // Can go away when react 1.0 release
@@ -60,7 +62,8 @@ const App = React.createClass({
         return (
             <div>
                 <AppBar
-                    title="Nec Mergitur - Défi 671"
+                    title="Nec Mergitur - Défi 672"
+                    iconElementRight={<CurrentUser />}
                     onLeftIconButtonTouchTap={this.toggleLeftNavigationPane} />
 
                 <LeftNav
@@ -74,9 +77,9 @@ const App = React.createClass({
                             Hôpitaux
                         </MenuItem>
                         <MenuItem
-                            value="secours"
-                            leftIcon={<FontIcon className="material-icons">directions_car</FontIcon>}>
-                            Secours
+                            value="pma"
+                            leftIcon={<FontIcon className="material-icons">healing</FontIcon>}>
+                            P.M.A
                         </MenuItem>
                     </Menu>
                 </LeftNav>
@@ -94,7 +97,7 @@ const router = (
         <Route path="/" component={App}>
             <IndexRoute component={HopitauxPage} />
             <Route path="/hopital/:id" component={HopitalPage} />
-            <Route path="/secours" component={SecoursPage} />
+            <Route path="/pma" component={PostesMedicauxAvances} />
             <Route path="*" component={NotFoundPage} />
         </Route>
     </Router>
