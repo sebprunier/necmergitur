@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -DPROD_MODE=true -jar build/libs/672-stub-backend-1.0-all.jar
