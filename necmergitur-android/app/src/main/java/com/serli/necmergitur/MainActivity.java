@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
@@ -28,7 +27,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.serli.necmergitur.activity.HospitalsActivity;
@@ -96,7 +98,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -171,7 +172,8 @@ public class MainActivity extends AppCompatActivity
 
     @OnClick(R.id.layoutQRCode)
     public void clickQRCode(){
-//        ActivityUtils.changeActivity(this, ArrivalScaner.class, priseEnCharge);
+
+        new IntentIntegrator(this).initiateScan();
     }
 
     @OnClick(R.id.layoutHopital)
@@ -197,6 +199,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadData(String id){
         Response response = null;
+        panelPhotos.removeAllViews();
         try {
             response = pecService.findPriseEnCharge(id).execute();
             PriseEnCharge pecFound = (PriseEnCharge)response.body();
@@ -207,13 +210,12 @@ public class MainActivity extends AppCompatActivity
                     }else{
                         buttonUR.callOnClick();
                     }
-                    textViewHospital.setText(pecFound.getHopital().getName());
                 }
                 if (pecFound.getHopital() != null) {
                     textViewHospital.setText(pecFound.getHopital().getName());
                 }
                 if (pecFound.getDescription() != null) {
-                    textViewHospital.setText(pecFound.getDescription());
+                    textViewInput.setText(pecFound.getDescription());
                 }
                 if(pecFound.getPhotos()!=null){
                     for(String urlPix : pecFound.getPhotos()) {
@@ -278,6 +280,19 @@ public class MainActivity extends AppCompatActivity
                 }
             });
             panelPhotos.addView(imageView);
+        }
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Log.d("MainActivity", "Cancelled scan");
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                String id=result.getContents();
+                loadData(id);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
