@@ -1,0 +1,54 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+
+    <table class="table">
+        <thead>
+        <th>Verb</th>
+        <th>Route</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>GET</td>
+            <td><a href="api/hopitaux">api/hopitaux</a></td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td><a href="api/hopitaux/1">api/hopitaux/:hopitaUUID</a></td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>api/hopitaux/:hopitaUUID</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td><a href="api/prise-en-charges">api/prise-en-charges</a></td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td><a href="api/prise-en-charges/hopital/1">api/prise-en-charges/hopital/:hopitalId</a></td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td><a href="api/prises-en-charge/1">api/prises-en-charge/:id</a></td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>api/prises-en-charge/</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>api/prises-en-charge/</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+
