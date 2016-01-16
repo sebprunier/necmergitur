@@ -5,17 +5,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.serli.necmergitur.MainActivity"
     tools:showIn="@layout/app_bar_main"
     android:rowCount="19"
     android:columnCount="18"
     android:id="@+id/parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:padding="0dp">
 
 
     <ScrollView
@@ -43,7 +40,7 @@
                     android:id="@+id/buttonUA"
                     android:enabled="false"
                     android:layout_weight="0.50"
-                    android:background="@color/primary"
+                    android:background="@drawable/buttons_selected"
                     android:textColor="#ffffff" />
 
                 <Button
@@ -54,39 +51,31 @@
                     android:enabled="true"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.50"
-                    android:background="@color/primary"
+                    android:background="@drawable/buttons_selected"
                     android:textColor="#ffffff" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:padding="16dp"
-                android:id="@+id/layoutQRCode">
+                android:id="@+id/layoutQRCode"
+                android:layout_gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/qrcode_icon"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Flasher le bracelet du patient"
-                    android:id="@+id/buttonQRCode"
-                    android:layout_toRightOf="@+id/qrcode_icon"
-                    android:layout_alignParentTop="true"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_marginRight="16dp"
+                    android:layout_centerInParent="true" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:padding="16dp"
                 android:id="@+id/layoutHopital">>
 
@@ -94,19 +83,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/hospital_icon"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Veuillez saisir l&apos;hôpital du patient"
-                    android:id="@+id/buttonHospitals"
-                    android:layout_toRightOf="@+id/hospital_icon"
-                    android:layout_alignParentTop="true"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_marginRight="16dp"
+                    android:layout_centerInParent="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -114,15 +94,15 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="..."
                     android:id="@+id/textViewHopitalChoisis"
-                    android:layout_toRightOf="@+id/hospital_icon"
-                    android:layout_below="@+id/buttonHospitals"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:padding="16dp"
                 android:id="@+id/layoutInput">
 
@@ -130,21 +110,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/description_icon"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
                     android:layout_marginRight="16dp"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Description complémentaire concernant le patient"
-                    android:id="@+id/buttonInput"
-                    android:layout_toRightOf="@+id/description_icon"
-                    android:layout_alignParentTop="true"
-                    android:layout_gravity="center_vertical"
-                    />
+                    android:layout_centerInParent="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -152,14 +121,15 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="..."
                     android:id="@+id/textViewInput"
-                    android:layout_toRightOf="@+id/description_icon"
-                    android:layout_below="@+id/buttonInput"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentBottom="true" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:padding="16dp"
                 android:id="@+id/layoutPhotos">
 
@@ -168,20 +138,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/photo_icon"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
                     android:layout_marginRight="16dp"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Ajouter des photos"
-                    android:id="@+id/buttonPhotos"
-                    android:layout_toRightOf="@+id/photo_icon"
-                    android:layout_alignParentTop="true"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_centerInParent="true" />
 
             </RelativeLayout>
 

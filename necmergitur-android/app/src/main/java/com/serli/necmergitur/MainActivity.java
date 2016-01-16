@@ -26,6 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,8 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity{
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int TEN_MINUTES = 1000 * 60 * 10;
@@ -78,21 +78,11 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.buttonUR)
     Button buttonUR;
 
-    @Bind(R.id.buttonQRCode)
-    TextView buttonQRCode;
-
-    @Bind(R.id.buttonInput)
-    TextView buttonInputText;
     @Bind(R.id.textViewInput)
     TextView textViewInput;
 
-    @Bind(R.id.buttonHospitals)
-    TextView buttonHospitals;
     @Bind(R.id.textViewHopitalChoisis)
     TextView textViewHospital;
-
-    @Bind(R.id.buttonPhotos)
-    TextView buttonPhoto;
 
     @Bind(R.id.panelPhotos)
     LinearLayout panelPhotos;
@@ -102,7 +92,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -122,21 +111,10 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         // Button add prise en charge
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.buttonPriseEnCharge);
         fab.setOnClickListener(getListenerAddPriseEnCharge());
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -247,24 +225,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -289,7 +250,6 @@ public class MainActivity extends AppCompatActivity
         if (result != null) {
             if (result.getContents() == null) {
                 Log.d("MainActivity", "Cancelled scan");
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 String id = result.getContents();
                 loadData(id);
@@ -297,31 +257,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void resetAllFields() {
@@ -348,22 +283,22 @@ public class MainActivity extends AppCompatActivity
 
         // INIT
         pecService = initRetrofitService();
-        Integer size = 26;
+        Integer size = 36;
         Drawable qrDraw = new IconicsDrawable(this)
                 .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
                 .color(Color.GRAY)
                 .sizeDp(size);
         Drawable hospitalDraw = new IconicsDrawable(this)
                 .icon(MaterialDesignIconic.Icon.gmi_hospital)
-                .color(Color.RED)
+                .color(Color.GRAY)
                 .sizeDp(size);
         Drawable descriptionDraw = new IconicsDrawable(this)
                 .icon(MaterialDesignIconic.Icon.gmi_format_align_left)
-                .color(Color.BLACK)
+                .color(Color.GRAY)
                 .sizeDp(size);
         Drawable photoDraw = new IconicsDrawable(this)
                 .icon(MaterialDesignIconic.Icon.gmi_camera_add)
-                .color(Color.DKGRAY)
+                .color(Color.GRAY)
                 .sizeDp(size);
         qrcodeIcon.setImageDrawable(qrDraw);
         hospitalIcon.setImageDrawable(hospitalDraw);
