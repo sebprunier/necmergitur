@@ -12,7 +12,7 @@ import retrofit2.http.GET;
  */
 public interface HospitalsService {
 
-    @GET("/api/hopitaux")
+    @GET("/LATEST/resources/hopitaux")
     Call<List<Hopital>> getHospitals();
 
 }

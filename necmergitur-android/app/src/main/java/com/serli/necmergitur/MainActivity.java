@@ -18,20 +18,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -46,20 +40,29 @@ import com.serli.necmergitur.utils.RetrofitSingleton;
 import com.serli.necmergitur.utils.TUtils;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Random;
+import java.util.UUID;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int TEN_MINUTES = 1000 * 60 * 10;
 
-    public static final String ENDPOINT = "https://stub-backend-672.herokuapp.com";
+    public static final String ENDPOINT = "http://ec2-52-19-51-173.eu-west-1.compute.amazonaws.com:8080";
 
     private PriseEnChargeService pecService;
 
@@ -122,13 +125,24 @@ public class MainActivity extends AppCompatActivity{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String id = String.valueOf(new Random().nextInt((1000 - 20) + 1) + 20);
+                priseEnCharge.setId(id);
+                priseEnCharge.setEtat("Transport");
+
+                GregorianCalendar c = new GregorianCalendar();
+                c.setTime(c.getTime());
                 try {
-                    priseEnCharge.setLocalDateTime(Calendar.getInstance().getTime().toString());
+
+                    String dateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date());
+                    priseEnCharge.setLocalDateTime(dateTime);
+                    priseEnCharge.setHopitalUUID(priseEnCharge.getHopital().getUuid());
+                    priseEnCharge.setPhotos(new ArrayList<String>());
                     Response response = pecService.createPriseEnCharge(priseEnCharge).execute();
-                    Log.i("debugcopain", response.message());
+                    Log.i("response", response.body().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
 
                 resetAllFields();
                 Snackbar.make(view, "La prise en charge a été ajoutée.", Snackbar.LENGTH_LONG)
@@ -153,7 +167,6 @@ public class MainActivity extends AppCompatActivity{
 
     @OnClick(R.id.layoutQRCode)
     public void clickQRCode() {
-
         new IntentIntegrator(this).initiateScan();
     }
 
@@ -285,7 +298,7 @@ public class MainActivity extends AppCompatActivity{
         pecService = initRetrofitService();
         Integer size = 36;
         Drawable qrDraw = new IconicsDrawable(this)
-                .icon(MaterialDesignIconic.Icon.gmi_watch)
+                .icon(MaterialDesignIconic.Icon.gmi_blur)
                 .color(Color.GRAY)
                 .sizeDp(size);
         Drawable hospitalDraw = new IconicsDrawable(this)
@@ -308,7 +321,7 @@ public class MainActivity extends AppCompatActivity{
         // Acquire a reference to the system Location Manager
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-// Define a listener that responds to location updates
+        // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
@@ -329,10 +342,18 @@ public class MainActivity extends AppCompatActivity{
             public void onProviderDisabled(String provider) {
             }
         };
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 10, locationListener);
 
-// Register the listener with the Location Manager to receive location updates
+
+        // Register the listener with the Location Manager to receive location updates
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, TEN_MINUTES, 10, locationListener);
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
 

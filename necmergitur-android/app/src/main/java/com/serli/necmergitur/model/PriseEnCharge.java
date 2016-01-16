@@ -40,6 +40,11 @@ public class PriseEnCharge implements Serializable{
     private String description;
     private List<String> photos;
 
+
+    public PriseEnCharge() {
+        this.lieuPrisEnCharge = "";
+    }
+
     public void setLocalDateTime(String localDateTime) {
         this.localDateTime = localDateTime;
     }
