@@ -15,6 +15,9 @@ import Menu from 'material-ui/lib/menus/menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FontIcon from 'material-ui/lib/font-icon';
 
+import ThemeManager from 'material-ui/lib/styles/theme-manager';
+import CustomTheme from './theme/theme'
+
 // Needed for onTouchTap
 // Can go away when react 1.0 release
 // Check this repo:
@@ -25,6 +28,16 @@ injectTapEventPlugin();
 require('babel-polyfill');
 
 const App = React.createClass({
+    childContextTypes : {
+        muiTheme: React.PropTypes.object,
+    },
+
+    getChildContext() {
+        return {
+            muiTheme: ThemeManager.getMuiTheme(CustomTheme),
+        };
+    },
+
     getInitialState() {
         return {
             leftNavigationPaneOpened: false
