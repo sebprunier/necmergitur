@@ -3,9 +3,12 @@ package com.serli.necmergitur;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
@@ -26,14 +29,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.serli.necmergitur.activity.HospitalsActivity;
 import com.serli.necmergitur.activity.InputActivity;
-import com.serli.necmergitur.activity.QRCodeActivity;
 import com.serli.necmergitur.model.PriseEnCharge;
 import com.serli.necmergitur.service.PriseEnChargeService;
 import com.serli.necmergitur.utils.ActivityUtils;
 import com.serli.necmergitur.utils.RetrofitSingleton;
 import com.serli.necmergitur.utils.TUtils;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -52,6 +57,16 @@ public class MainActivity extends AppCompatActivity
     public static final String ENDPOINT = "https://stub-backend-672.herokuapp.com";
 
     private PriseEnChargeService pecService;
+
+    @Bind(R.id.qrcode_icon)
+    ImageView qrcodeIcon;
+    @Bind(R.id.hospital_icon)
+    ImageView hospitalIcon;
+    @Bind(R.id.description_icon)
+    ImageView descriptionIcon;
+    @Bind(R.id.photo_icon)
+    ImageView photoIcon;
+
 
     @Bind(R.id.buttonUA)
     Button buttonUA;
@@ -81,7 +96,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -154,7 +171,7 @@ public class MainActivity extends AppCompatActivity
 
     @OnClick(R.id.layoutQRCode)
     public void clickQRCode(){
-        ActivityUtils.changeActivity(this, QRCodeActivity.class, priseEnCharge);
+//        ActivityUtils.changeActivity(this, ArrivalScaner.class, priseEnCharge);
     }
 
     @OnClick(R.id.layoutHopital)
@@ -176,6 +193,40 @@ public class MainActivity extends AppCompatActivity
     @OnClick(R.id.layoutPhotos)
     public void clickPhotos(){
         dispatchTakePictureIntent();
+    }
+
+    private void loadData(String id){
+        Response response = null;
+        try {
+            response = pecService.findPriseEnCharge(id).execute();
+            PriseEnCharge pecFound = (PriseEnCharge)response.body();
+            if(pecFound!= null) {
+                if (pecFound.getEtat() != null) {
+                    if("UA".equals(pecFound.getEtat())){
+                        buttonUA.callOnClick();
+                    }else{
+                        buttonUR.callOnClick();
+                    }
+                    textViewHospital.setText(pecFound.getHopital().getName());
+                }
+                if (pecFound.getHopital() != null) {
+                    textViewHospital.setText(pecFound.getHopital().getName());
+                }
+                if (pecFound.getDescription() != null) {
+                    textViewHospital.setText(pecFound.getDescription());
+                }
+                if(pecFound.getPhotos()!=null){
+                    for(String urlPix : pecFound.getPhotos()) {
+                        ImageView img = new ImageView(this);
+                        Picasso.with(getApplicationContext()).load(urlPix).into(img);
+                        panelPhotos.addView(img);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -279,6 +330,27 @@ public class MainActivity extends AppCompatActivity
 
         // INIT
         pecService = initRetrofitService();
+
+        Drawable qrDraw = new IconicsDrawable(this)
+                .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
+                .color(Color.RED)
+                .sizeDp(24);
+        Drawable hospitalDraw = new IconicsDrawable(this)
+                .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
+                .color(Color.RED)
+                .sizeDp(24);
+        Drawable descriptionDraw = new IconicsDrawable(this)
+                .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
+                .color(Color.RED)
+                .sizeDp(24);
+        Drawable photoDraw = new IconicsDrawable(this)
+                .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
+                .color(Color.RED)
+                .sizeDp(24);
+        qrcodeIcon.setImageDrawable(qrDraw);
+        hospitalIcon.setImageDrawable(hospitalDraw);
+        descriptionIcon.setImageDrawable(descriptionDraw);
+        photoIcon.setImageDrawable(photoDraw);
 
         // Acquire a reference to the system Location Manager
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
