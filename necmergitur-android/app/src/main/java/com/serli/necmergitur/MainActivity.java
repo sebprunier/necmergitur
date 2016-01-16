@@ -1,6 +1,7 @@
 package com.serli.necmergitur;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -15,21 +16,46 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.serli.necmergitur.activity.HospitalsActivity;
+import com.serli.necmergitur.activity.InputActivity;
+import com.serli.necmergitur.activity.PhotosActivity;
+import com.serli.necmergitur.activity.QRCodeActivity;
+import com.serli.necmergitur.utils.ActivityUtils;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    @Bind(R.id.buttonTest)
-    Button buttonTest;
+    @Bind(R.id.buttonUR)
+    Button buttonUR;
+    @Bind(R.id.buttonUA)
+    Button buttonUA;
+    @Bind(R.id.buttonQRCode)
+    Button buttonQRCode;
+    @Bind(R.id.buttonPhotos)
+    Button buttonPhoto;
+    @Bind(R.id.buttonInput)
+    Button buttonInputText;
+    @Bind(R.id.buttonSave)
+    Button buttonSave;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,13 +78,57 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        buttonTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
+//        initScreen();
+
+//        buttonTest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent myIntent = new Intent(view.getContext(), TestActivity.class);
+//                startActivityForResult(myIntent, 0);
+//            }
+//        });
+
+        if(getIntent().getExtras() != null) {
+            String content = getIntent().getExtras().get("content") != null ? getIntent().getExtras().get("content").toString() : null;
+            if (content != null) {
+                Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
             }
-        });
+        }
     }
+
+    @OnClick(R.id.buttonUA)
+    public void clickUA(){
+        buttonUR.setEnabled(true);
+        buttonUA.setEnabled(false);
+    }
+
+    @OnClick(R.id.buttonUR)
+    public void clickUR(){
+        buttonUR.setEnabled(false);
+        buttonUA.setEnabled(true);
+    }
+
+    @OnClick(R.id.buttonQRCode)
+    public void clickQRCode(){
+        ActivityUtils.changeActivity(this, QRCodeActivity.class);
+    }
+
+    @OnClick(R.id.buttonHospitals)
+    public void clickHospitals(){
+        ActivityUtils.changeActivity(this, HospitalsActivity.class);
+    }
+
+    @OnClick(R.id.buttonInput)
+    public void clickInput(){
+        ActivityUtils.changeActivity(this, InputActivity.class);
+    }
+
+
+    @OnClick(R.id.buttonPhotos)
+    public void clickPhotos(){
+        ActivityUtils.changeActivity(this, PhotosActivity.class);
+    }
+
 
     @Override
     public void onBackPressed() {
