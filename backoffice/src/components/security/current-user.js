@@ -25,7 +25,8 @@ const CurrentUser = React.createClass({
 
     getUserProfile() {
         let location = window.location.href;
-        if (location.indexOf('hopital') > 0) {
+        console.log(location);
+        if (location.indexOf('hopitaux') > 0) {
             return UserProfiles.AdminHopital;
         }
         return UserProfiles.AdminSamu;

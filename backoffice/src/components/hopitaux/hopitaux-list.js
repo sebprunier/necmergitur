@@ -15,7 +15,7 @@ const HopitauxList = React.createClass({
                         <div className="grid">
                             <div className="1/2 grid__cell">
                                 <p style={{fontWeight: 'bold'}}>
-                                    <Link to={`/hopital/${hopital.uuid}`}>
+                                    <Link to={`/hopitaux/${hopital.uuid}`}>
                                         {hopital.name}
                                     </Link>
                                 </p>

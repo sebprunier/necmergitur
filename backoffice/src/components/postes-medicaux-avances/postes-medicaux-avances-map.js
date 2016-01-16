@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react'
 
 import { GoogleMapLoader, GoogleMap, Marker } from "react-google-maps";
 
-const HopitauxMap = React.createClass({
+const PostesMedicauxAvancesMap = React.createClass({
     render () {
-        let hopitaux = this.props.hopitaux;
+        let pmas = this.props.pmas;
         return (
             <section style={{height: "700px"}}>
               <GoogleMapLoader
@@ -20,15 +20,15 @@ const HopitauxMap = React.createClass({
                   <GoogleMap
                     defaultZoom={12}
                     defaultCenter={{lat: 48.856638, lng: 2.352241}}>
-                    {hopitaux.map((hopital, index) => {
-                        let coords = hopital.location.split(',');
+                    {pmas.map((pma, index) => {
+                        let coords = pma.location.split(',');
                         let marker = {
                           position: {
                             lat: parseFloat(coords[0]),
                             lng: parseFloat(coords[1]),
                           },
-                          key: hopital.uuid,
-                          title: hopital.name
+                          key: pma.uuid,
+                          title: pma.name
                         }
                       return (
                         <Marker {...marker} />
@@ -42,4 +42,4 @@ const HopitauxMap = React.createClass({
     }
 })
 
-export default HopitauxMap
+export default PostesMedicauxAvancesMap
