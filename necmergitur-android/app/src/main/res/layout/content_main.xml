@@ -61,7 +61,7 @@
                 android:layout_height="80dp"
                 android:padding="16dp"
                 android:id="@+id/layoutQRCode"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp">
 
@@ -69,10 +69,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/qrcode_icon"
-                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="false"
                     android:layout_marginRight="16dp"
-                    android:layout_centerInParent="true" />
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="140dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -83,7 +84,8 @@
                     android:text="Scan"
                     android:layout_alignParentRight="false"
                     android:layout_toRightOf="@+id/qrcode_icon"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="13dp" />
 
             </RelativeLayout>
 
@@ -104,11 +106,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/hospital_icon"
-                    android:layout_alignParentLeft="false"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="false"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="140dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,7 +122,8 @@
                     android:text="Hôpital"
                     android:layout_alignParentRight="false"
                     android:layout_toRightOf="@+id/hospital_icon"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="7dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -151,11 +155,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/description_icon"
-                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="false"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="100dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -166,7 +171,8 @@
                     android:text="Autres informations"
                     android:layout_alignParentRight="false"
                     android:layout_toRightOf="@+id/description_icon"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="7dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -197,10 +203,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/photo_icon"
-                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="false"
                     android:layout_marginRight="16dp"
-                    android:layout_centerInParent="true" />
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="100dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -211,7 +218,8 @@
                     android:text="Ajouter des photos"
                     android:layout_alignParentRight="false"
                     android:layout_toRightOf="@+id/photo_icon"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="13dp" />
 
             </RelativeLayout>
 
