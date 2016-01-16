@@ -8,7 +8,7 @@ const SecoursPage = React.createClass({
         return (
             <div>
                 <h1 style={{textAlign: 'center'}}>
-                    <FontIcon className="material-icons">directions_car</FontIcon> Secours
+                    <FontIcon className="material-icons">healing</FontIcon> Postes Médicaux Avancés
                 </h1>
             </div>
         )
