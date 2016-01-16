@@ -22,7 +22,12 @@
     "babel-polyfill": "^6.3.14",
     "moment": "^2.11.1",
     "react": "^0.14.6",
-    "react-dom": "^0.14.6"
+    "react-dom": "^0.14.6",
+    "react-router": "^1.0.3",
+    "history": "^1.17.0",
+    "material-ui": "^0.14.2",
+    "react-tap-event-plugin": "0.2.1",
+    "react-google-maps": "4.7.2"
   },
   "devDependencies": {
     "babel": "^6.3.26",
