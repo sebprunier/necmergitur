@@ -5,8 +5,24 @@ import { Link } from 'react-router';
 import Paper from 'material-ui/lib/paper';
 import Toggle from 'material-ui/lib/toggle';
 import Badge from 'material-ui/lib/badge';
+import Colors from 'material-ui/lib/styles/colors';
+
+const TensionColors = {
+    "Vert": Colors.green500,
+    "Jaune": Colors.amber500,
+    "Orange": Colors.orange500,
+    "Rouge": Colors.red500
+}
 
 const HopitauxList = React.createClass({
+    renderTension(hopital) {
+        if (hopital.active) {
+            return (
+                <span style={{marginLeft: 16, color: TensionColors[hopital.reveil.tension]}}>{`[${hopital.reveil.tension}]`}</span>
+            )
+        }
+    },
+
     render () {
         let hopitaux = this.props.hopitaux;
         return (
@@ -19,6 +35,7 @@ const HopitauxList = React.createClass({
                                     <Link to={`/hopitaux/${hopital.uuid}`}>
                                         {hopital.name}
                                     </Link>
+                                    {this.renderTension(hopital)}
                                 </p>
                             </div>
                             <div className="1/2 grid__cell">
