@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 public class APIEndPoint {
     private Map<String, Hopital> hopitaux = new HashMap<>();
     private Map<String, PriseEnCharge> priseEnCharges = new HashMap<>();
-    private final String[] ETATS = {"Ambulance", "Hopital", "Sorti"};
+    private final String[] ETATS = {"PMA", "Transport", "Arrivé Hopital", "Urgence", "Réveil", "Sorti"};
     private final String[] GRAVITE = {"UA", "UR"};
-    private final String[] TENSIONS = {"Rouge", "Orange", "Orange", "Vert", "Vert", "Vert"};
+    private final String[] TENSIONS = {"Rouge", "Jaune", "Jaune", "Vert", "Vert", "Vert"};
 
     public APIEndPoint() {
         createHopitaux();
@@ -114,6 +114,7 @@ public class APIEndPoint {
         priseEnCharge.localDateTime = LocalDateTime.now();
         priseEnCharge.etat = randomValue(ETATS);
         priseEnCharge.lieuPrisEnCharge = 2.35 + randomizeCoordiate() + "," + 48.853 + randomizeCoordiate();
+        priseEnCharge.lieuActuel = 2.35 + randomizeCoordiate() + "," + 48.853 + randomizeCoordiate();
         priseEnCharge.gravite = randomValue(GRAVITE);
         priseEnCharge.id = id;
         Hopital[] hopitalsArray = new ArrayList<Hopital>(hopitaux.values()).toArray(new Hopital[hopitaux.values().size()]);

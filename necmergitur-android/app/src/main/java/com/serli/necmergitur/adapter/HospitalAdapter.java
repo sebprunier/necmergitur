@@ -16,7 +16,6 @@ import com.serli.necmergitur.model.Hopital;
  */
 public class HospitalAdapter extends ArrayAdapter<Hopital> {
 
-
     public HospitalAdapter(Context context, int resource) {
         super(context, resource);
     }

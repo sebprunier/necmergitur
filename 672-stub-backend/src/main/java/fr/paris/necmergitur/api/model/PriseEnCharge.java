@@ -9,6 +9,7 @@ public class PriseEnCharge {
     public LocalDateTime localDateTime = LocalDateTime.now();
     public String etat;
     public String lieuPrisEnCharge;
+    public String lieuActuel;
     public String gravite;
     public String id;
     public Hopital hopital;
