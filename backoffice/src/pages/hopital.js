@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 
 import FontIcon from 'material-ui/lib/font-icon';
 import CircularProgress from 'material-ui/lib/circular-progress';
+import Checkbox from 'material-ui/lib/checkbox';
 
 import axios from 'axios';
 
@@ -14,7 +15,15 @@ const HopitalPage = React.createClass({
         return {
             loading: true,
             hopital: null,
-            patients: []
+            patients: [],
+            patientsEtatsFilters: {
+                "PMA" : true,
+                "Transport" : true,
+                "Arrivé Hopital": true,
+                "Réveil" : true,
+                "Urgence" : true,
+                "Sorti" : false
+            }
         };
     },
 
@@ -45,6 +54,19 @@ const HopitalPage = React.createClass({
             });
     },
 
+    onPatientEtatFilterCheck(event, checked) {
+        let change = {
+            "PMA" : this.state.patientsEtatsFilters["PMA"],
+            "Transport" : this.state.patientsEtatsFilters["Transport"],
+            "Arrivé Hopital": this.state.patientsEtatsFilters["Arrivé Hopital"],
+            "Réveil" : this.state.patientsEtatsFilters["Réveil"],
+            "Urgence" : this.state.patientsEtatsFilters["Urgence"],
+            "Sorti" : this.state.patientsEtatsFilters["Sorti"]
+        }
+        change[event.target.name] = checked;
+        this.setState({patientsEtatsFilters: change});
+    },
+
     render () {
         if (this.state.loading) {
             return (
@@ -64,7 +86,27 @@ const HopitalPage = React.createClass({
                             <HopitalJauges hopital={hopital} />
                         </div>
                         <div className="1/2 grid__cell">
-                            <PatientsList patients={this.state.patients} />
+                            <div className="grid" style={{marginBottom: 8}}>
+                                <div className="1/6 grid__cell">
+                                    <Checkbox name="PMA" checked={this.state.patientsEtatsFilters["PMA"]} defaultChecked={true} label="PMA" onCheck={this.onPatientEtatFilterCheck}/>
+                                </div>
+                                <div className="1/6 grid__cell">
+                                    <Checkbox name="Transport" checked={this.state.patientsEtatsFilters["Transport"]} defaultChecked={true} label="Transport" onCheck={this.onPatientEtatFilterCheck}/>
+                                </div>
+                                <div className="1/6 grid__cell">
+                                    <Checkbox name="Arrivé Hopital" checked={this.state.patientsEtatsFilters["Arrivé Hopital"]} defaultChecked={true} label="Arrivé" onCheck={this.onPatientEtatFilterCheck}/>
+                                </div>
+                                <div className="1/6 grid__cell">
+                                    <Checkbox name="Réveil" checked={this.state.patientsEtatsFilters["Réveil"]} defaultChecked={true} label="Réveil" onCheck={this.onPatientEtatFilterCheck}/>
+                                </div>
+                                <div className="1/6 grid__cell">
+                                    <Checkbox name="Urgence" checked={this.state.patientsEtatsFilters["Urgence"]} defaultChecked={true} label="Urgence" onCheck={this.onPatientEtatFilterCheck}/>
+                                </div>
+                                <div className="1/6 grid__cell">
+                                    <Checkbox name="Sorti" checked={this.state.patientsEtatsFilters["Sorti"]} defaultChecked={false} label="Sorti" onCheck={this.onPatientEtatFilterCheck}/>
+                                </div>
+                            </div>
+                            <PatientsList patients={this.state.patients} patientsEtatsFilters={this.state.patientsEtatsFilters} />
                         </div>
                     </div>
                 </div>

@@ -58,7 +58,9 @@ const HopitauxPage = React.createClass({
     },
 
     componentDidMount() {
-        axios.get('https://stub-backend-672.herokuapp.com/api/hopitaux')
+        // let url = 'http://ec2-52-19-51-173.eu-west-1.compute.amazonaws.com:8040/LATEST/resources/hopitaux'
+        let url = 'https://stub-backend-672.herokuapp.com/api/hopitaux'
+        axios.get(url)
           .then(response => {
               this.setState({
                   loading: false,

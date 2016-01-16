@@ -18,7 +18,8 @@ const Avatars = {
     "Transport" : <FontIcon className="material-icons">local_taxi</FontIcon>,
     "Arrivé Hopital": <FontIcon className="material-icons">local_hotel</FontIcon>,
     "Réveil" : <FontIcon className="material-icons">local_hotel</FontIcon>,
-    "Urgence" : <FontIcon className="material-icons">local_hotel</FontIcon>
+    "Urgence" : <FontIcon className="material-icons">local_hotel</FontIcon>,
+    "Sorti" : <FontIcon className="material-icons">directions_walk</FontIcon>
 }
 
 const ActionLabels = {
@@ -26,20 +27,22 @@ const ActionLabels = {
     "Transport" : "Valider l'arrivée",
     "Arrivé Hopital": "Valider la sortie",
     "Réveil" : "Valider la sortie",
-    "Urgence" : "Valider la sortie"
+    "Urgence" : "Valider la sortie",
+    "Sorti" : "Voir l'historique"
 }
 
 const PatientsList = React.createClass({
 
     render () {
-        let patients = this.props.patients.filter(patient => patient.etat !== 'Sorti');
+        let patients = this.props.patients;
+        let patientsEtatsFilters = this.props.patientsEtatsFilters;
         return (
             <div>
-                {patients.map(patient => {return (
+                {patients.map(patient => {if (patientsEtatsFilters[patient.etat]) return (
                     <Card key={patient.id} style={CardStyle}>
                         <CardHeader
-                            title={`[${patient.etat}] SINUS n°${patient.id}`}
-                            subtitle={patient.description}
+                            title={`SINUS n°${patient.id}`}
+                            subtitle={`[${patient.etat}]`}
                             avatar={Avatars[patient.etat]}
                             showExpandableButton={true} />
                         <CardMedia expandable={true}>
