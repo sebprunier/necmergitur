@@ -1,7 +1,9 @@
 package com.serli.necmergitur;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -13,6 +15,7 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -107,13 +110,13 @@ public class MainActivity extends AppCompatActivity
 
         priseEnCharge = new PriseEnCharge();
         priseEnCharge.setGravite("UA");
-        if(getIntent().getExtras()!=null) {
+        if (getIntent().getExtras() != null) {
             priseEnCharge = (PriseEnCharge) getIntent().getExtras().get(ActivityUtils.PEC);
             if (priseEnCharge != null) {
                 if (priseEnCharge.getHopital() != null) {
                     textViewHospital.setText(priseEnCharge.getHopital().getName());
                 }
-                if(priseEnCharge.getDescription()!=null) {
+                if (priseEnCharge.getDescription() != null) {
                     textViewInput.setText(priseEnCharge.getDescription());
                 }
             }
@@ -137,14 +140,14 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private View.OnClickListener getListenerAddPriseEnCharge(){
+    private View.OnClickListener getListenerAddPriseEnCharge() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     priseEnCharge.setLocalDateTime(Calendar.getInstance().getTime().toString());
                     Response response = pecService.createPriseEnCharge(priseEnCharge).execute();
-                    Log.i("debugcopain",response.message());
+                    Log.i("debugcopain", response.message());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -157,57 +160,57 @@ public class MainActivity extends AppCompatActivity
     }
 
     @OnClick(R.id.buttonUA)
-    public void clickUA(){
+    public void clickUA() {
         buttonUR.setEnabled(true);
         buttonUA.setEnabled(false);
         priseEnCharge.setGravite("UA");
     }
 
     @OnClick(R.id.buttonUR)
-    public void clickUR(){
+    public void clickUR() {
         buttonUR.setEnabled(false);
         buttonUA.setEnabled(true);
         priseEnCharge.setGravite("UR");
     }
 
     @OnClick(R.id.layoutQRCode)
-    public void clickQRCode(){
+    public void clickQRCode() {
 
         new IntentIntegrator(this).initiateScan();
     }
 
     @OnClick(R.id.layoutHopital)
-    public void clickHospitals(){
+    public void clickHospitals() {
         ActivityUtils.changeActivity(this, HospitalsActivity.class, priseEnCharge);
     }
 
     @OnClick(R.id.layoutInput)
-    public void clickInput(){
-        ActivityUtils.changeActivity(this, InputActivity.class,priseEnCharge);
+    public void clickInput() {
+        ActivityUtils.changeActivity(this, InputActivity.class, priseEnCharge);
     }
 
     @OnClick(R.id.buttonPriseEnCharge)
-    public void clickAddPriseEnCharge(){
+    public void clickAddPriseEnCharge() {
         TUtils.showToastShort(getApplicationContext(), "add prise en charge");
     }
 
 
     @OnClick(R.id.layoutPhotos)
-    public void clickPhotos(){
+    public void clickPhotos() {
         dispatchTakePictureIntent();
     }
 
-    private void loadData(String id){
+    private void loadData(String id) {
         Response response = null;
         panelPhotos.removeAllViews();
         try {
             response = pecService.findPriseEnCharge(id).execute();
-            PriseEnCharge pecFound = (PriseEnCharge)response.body();
-            if(pecFound!= null) {
+            PriseEnCharge pecFound = (PriseEnCharge) response.body();
+            if (pecFound != null) {
                 if (pecFound.getEtat() != null) {
-                    if("UA".equals(pecFound.getEtat())){
+                    if ("UA".equals(pecFound.getEtat())) {
                         buttonUA.callOnClick();
-                    }else{
+                    } else {
                         buttonUR.callOnClick();
                     }
                 }
@@ -217,8 +220,8 @@ public class MainActivity extends AppCompatActivity
                 if (pecFound.getDescription() != null) {
                     textViewInput.setText(pecFound.getDescription());
                 }
-                if(pecFound.getPhotos()!=null){
-                    for(String urlPix : pecFound.getPhotos()) {
+                if (pecFound.getPhotos() != null) {
+                    for (String urlPix : pecFound.getPhotos()) {
                         ImageView img = new ImageView(this);
                         Picasso.with(getApplicationContext()).load(urlPix).into(img);
                         panelPhotos.addView(img);
@@ -271,11 +274,11 @@ public class MainActivity extends AppCompatActivity
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ImageView imageView = new ImageView(this);
             imageView.setImageBitmap(imageBitmap);
-            imageView.setPadding(5,5,5,5);
+            imageView.setPadding(5, 5, 5, 5);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    LinearLayout l =(LinearLayout) view.getParent();
+                    LinearLayout l = (LinearLayout) view.getParent();
                     l.removeView(view);
                 }
             });
@@ -288,7 +291,7 @@ public class MainActivity extends AppCompatActivity
                 Log.d("MainActivity", "Cancelled scan");
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                String id=result.getContents();
+                String id = result.getContents();
                 loadData(id);
             }
         } else {
@@ -321,7 +324,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void resetAllFields(){
+    private void resetAllFields() {
         String defaultText = "...";
         textViewInput.setText(defaultText);
         textViewHospital.setText(defaultText);
@@ -336,7 +339,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void init(){
+    private void init() {
         // MOTHERFUCKERSHITDOWN HACK
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -345,23 +348,23 @@ public class MainActivity extends AppCompatActivity
 
         // INIT
         pecService = initRetrofitService();
-
+        Integer size = 26;
         Drawable qrDraw = new IconicsDrawable(this)
                 .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
-                .color(Color.RED)
-                .sizeDp(24);
+                .color(Color.GRAY)
+                .sizeDp(size);
         Drawable hospitalDraw = new IconicsDrawable(this)
-                .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
+                .icon(MaterialDesignIconic.Icon.gmi_hospital)
                 .color(Color.RED)
-                .sizeDp(24);
+                .sizeDp(size);
         Drawable descriptionDraw = new IconicsDrawable(this)
-                .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
-                .color(Color.RED)
-                .sizeDp(24);
+                .icon(MaterialDesignIconic.Icon.gmi_format_align_left)
+                .color(Color.BLACK)
+                .sizeDp(size);
         Drawable photoDraw = new IconicsDrawable(this)
-                .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
-                .color(Color.RED)
-                .sizeDp(24);
+                .icon(MaterialDesignIconic.Icon.gmi_camera_add)
+                .color(Color.DKGRAY)
+                .sizeDp(size);
         qrcodeIcon.setImageDrawable(qrDraw);
         hospitalIcon.setImageDrawable(hospitalDraw);
         descriptionIcon.setImageDrawable(descriptionDraw);
@@ -374,22 +377,30 @@ public class MainActivity extends AppCompatActivity
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
-                Log.i("location", "Latitude : " +  String.valueOf(location.getLatitude()) +
+                Log.i("location", "Latitude : " + String.valueOf(location.getLatitude()) +
                         " Longitude : " + String.valueOf(location.getLongitude()));
                 priseEnCharge.setLieuPrisEnCharge(String.format("%s,%s",
                         String.valueOf(location.getLatitude()),
                         String.valueOf(location.getLongitude())));
-;            }
+                ;
+            }
 
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
 
-            public void onProviderEnabled(String provider) {}
+            public void onProviderEnabled(String provider) {
+            }
 
-            public void onProviderDisabled(String provider) {}
+            public void onProviderDisabled(String provider) {
+            }
         };
 
 // Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, TEN_MINUTES, 10, locationListener);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, TEN_MINUTES, 10, locationListener);
+            return;
+        }
+
     }
 
     private PriseEnChargeService initRetrofitService(){
