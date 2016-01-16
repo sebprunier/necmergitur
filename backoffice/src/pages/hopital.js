@@ -5,16 +5,21 @@ import CircularProgress from 'material-ui/lib/circular-progress';
 
 import axios from 'axios';
 
+import HopitalJauges from '../components/hopital/hopital-jauges'
+import PatientsList from '../components/hopital/hopital-patients-list'
+
 const HopitalPage = React.createClass({
 
     getInitialState() {
         return {
             loading: true,
-            hopital: null
+            hopital: null,
+            patients: []
         };
     },
 
     componentDidMount() {
+        // Chargement des données de l'hopital
         axios.get('https://stub-backend-672.herokuapp.com/api/hopitaux/' + this.props.params.id)
           .then(response => {
               this.setState({
@@ -26,6 +31,18 @@ const HopitalPage = React.createClass({
               // TODO gérer une erreur dans le state
               console.log(response);
           });
+
+          // Chargement des prises en charge
+          axios.get('https://stub-backend-672.herokuapp.com/api/prises-en-charge/hopital/' + this.props.params.id)
+            .then(response => {
+                this.setState({
+                    patients: response.data
+                });
+            })
+            .catch(response => {
+                // TODO gérer une erreur dans le state
+                console.log(response);
+            });
     },
 
     render () {
@@ -36,7 +53,7 @@ const HopitalPage = React.createClass({
                 </div>
             )
         } else {
-            var hopital = this.state.hopital;
+            let hopital = this.state.hopital;
             return (
                 <div>
                     <h1 style={{textAlign: 'center'}}>
@@ -44,23 +61,10 @@ const HopitalPage = React.createClass({
                     </h1>
                     <div className="grid">
                         <div className="1/2 grid__cell">
-                            <b>Urgences Absolues</b>
-                            <ul>
-                                <li>Nombre de lits disponibles : {hopital.reveil.nombreLitsDisponibles}</li>
-                                <li>Nombre de patiens en route : {hopital.reveil.nombrePatientsEnRoute}</li>
-                                <li>Nombre de lits occupés : {hopital.reveil.nombreLitsOccupes}</li>
-                                <li>Tension : {hopital.reveil.tension}</li>
-                            </ul>
-                            <b>Urgences Relatives</b>
-                            <ul>
-                                <li>Nombre de lits disponibles : {hopital.urgence.nombreLitsDisponibles}</li>
-                                <li>Nombre de patiens en route : {hopital.urgence.nombrePatientsEnRoute}</li>
-                                <li>Nombre de lits occupés : {hopital.urgence.nombreLitsOccupes}</li>
-                                <li>Tension : {hopital.urgence.tension}</li>
-                            </ul>
+                            <HopitalJauges hopital={hopital} />
                         </div>
                         <div className="1/2 grid__cell">
-                            PATIENTS
+                            <PatientsList patients={this.state.patients} />
                         </div>
                     </div>
                 </div>
