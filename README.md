@@ -12,7 +12,7 @@ Lors d’évènements majeurs les victimes sont évacuées rapidement vers les �
 Dispatcher au mieux les patients à partir du terrain dans un delta "t" très court tout en permettant une synthèse au centre de régulation.
 Il est nécessaire de savoir combien de victimes ont été envoyées en UA (Urgence Absolue) ou en UR (Urgence Relative) vers les hôpitaux.
 Il faut donc utiliser des jauges qui vont permettre de connaître les disponibilités des différents établisements qui auront été ouverts pour l'occasion. 
-** Si la jauge de départ est incertaine, celle de l'arrivée à l'hôpitale est sûre.
+** Si la jauge de départ est incertaine, celle de l'arrivée à l'hôpital est sûre.
 Les UA peuvent toujhours être requalifiées à tout instant en UR et vice versa.
 
 Les données de base des capacités des hôpitaux à t0 sont déjà paramétrés. 
