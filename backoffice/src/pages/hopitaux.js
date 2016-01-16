@@ -1,15 +1,11 @@
 import React, { PropTypes } from 'react'
 
-import { Link } from 'react-router';
-
 import FontIcon from 'material-ui/lib/font-icon';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import Toggle from 'material-ui/lib/toggle';
 import CircularProgress from 'material-ui/lib/circular-progress';
-import Paper from 'material-ui/lib/paper';
 
-import { GoogleMapLoader, GoogleMap, Marker } from "react-google-maps";
+import HopitauxMap from '../components/hopitaux/hopitaux-map';
+import HopitauxList from '../components/hopitaux/hopitaux-list';
+import HopitauxFilters from '../components/hopitaux/hopitaux-filters';
 
 import axios from 'axios';
 
@@ -18,8 +14,47 @@ const HopitauxPage = React.createClass({
     getInitialState() {
         return {
             loading: true,
-            hopitaux: []
+            hopitaux: [],
+            filteredHopitaux: [],
+            filters : {
+                actives : true,
+                nonActives : false,
+                name: null
+            }
         };
+    },
+
+    filterHopitaux(hopitaux, filters) {
+        let filteredHopitaux = hopitaux.filter(hopital => (hopital.active && filters.actives) || (!hopital.active && filters.nonActives));
+        if (filters.name === null) {
+            return filteredHopitaux;
+        } else {
+            return filteredHopitaux.filter(hopital => new RegExp(filters.name, 'i').exec(hopital.name));
+        }
+    },
+
+    onActiveFilterChange(activeFilters) {
+        let filters = {
+            actives : activeFilters.actives,
+            nonActives : activeFilters.nonActives,
+            name: this.state.filters.name
+        }
+        this.setState({
+            filters: filters,
+            filteredHopitaux: this.filterHopitaux(this.state.hopitaux, filters)
+        })
+    },
+
+    onNameFilterChange(nameFilter) {
+        let filters = {
+            actives : this.state.filters.actives,
+            nonActives : this.state.filters.nonActives,
+            name: nameFilter.name
+        }
+        this.setState({
+            filters: filters,
+            filteredHopitaux: this.filterHopitaux(this.state.hopitaux, filters)
+        })
     },
 
     componentDidMount() {
@@ -27,7 +62,8 @@ const HopitauxPage = React.createClass({
           .then(response => {
               this.setState({
                   loading: false,
-                  hopitaux: response.data
+                  hopitaux: response.data,
+                  filteredHopitaux: this.filterHopitaux(response.data, this.state.filters)
               });
           })
           .catch(response => {
@@ -38,75 +74,9 @@ const HopitauxPage = React.createClass({
 
     renderTitle() {
         return (
-            <h1 style={{textAlign: 'center'}}>
+            <h1 style={{textAlign: 'center', marginBottom: 0}}>
                 <FontIcon className="material-icons">local_hospital</FontIcon> Hôpitaux de Paris
             </h1>
-        )
-    },
-
-    renderTable() {
-        let hopitaux = this.state.hopitaux;
-        return (
-            <div>
-                {hopitaux.map(hopital => { return (
-                    <Paper key={hopital.uuid} zDepth={1} style={{padding: 8}}>
-                        <div className="grid">
-                            <div className="1/2 grid__cell">
-                                <p style={{fontWeight: 'bold'}}>
-                                    <Link to={`/hopital/${hopital.uuid}`}>
-                                        {hopital.name}
-                                    </Link>
-                                </p>
-                            </div>
-                            <div className="1/2 grid__cell">
-                                <div style={{float: 'right', marginTop: 16, marginRight: 16}}>
-                                    <Toggle defaultToggled={hopital.active} />
-                                </div>
-                            </div>
-                        </div>
-                    </Paper>
-                )})}
-            </div>
-        )
-    },
-
-    renderMap() {
-        let hopitaux = this.state.hopitaux;
-        return (
-            <section style={{height: "700px"}}>
-              <GoogleMapLoader
-                containerElement={
-                  <div
-                    {...this.props}
-                    style={{
-                      height: "100%",
-                    }}
-                  />
-                }
-                googleMapElement={
-                  <GoogleMap
-                    ref={(map) => console.log(map)}
-                    defaultZoom={12}
-                    defaultCenter={{lat: 48.856638, lng: 2.352241}}>
-                    {hopitaux.map((hopital, index) => {
-                        let coords = hopital.location.split(',');
-                        let marker = {
-                          position: {
-                            lat: parseFloat(coords[0]),
-                            lng: parseFloat(coords[1]),
-                          },
-                          key: hopital.uuid,
-                          title: hopital.name,
-                          defaultAnimation: 2
-                        }
-                      return (
-                        <Marker {...marker} />
-                      );
-                    })}
-                  </GoogleMap>
-                }
-              />
-            </section>
         )
     },
 
@@ -119,16 +89,18 @@ const HopitauxPage = React.createClass({
                 </div>
             )
         } else {
-
             return (
                 <div>
                     {this.renderTitle()}
+                    <HopitauxFilters
+                        onActiveFilterChange={this.onActiveFilterChange}
+                        onNameFilterChange={this.onNameFilterChange} />
                     <div className="grid">
                         <div className="1/2 grid__cell">
-                            {this.renderMap()}
+                            <HopitauxMap hopitaux={this.state.filteredHopitaux} />
                         </div>
                         <div className="1/2 grid__cell">
-                            {this.renderTable()}
+                            <HopitauxList hopitaux={this.state.filteredHopitaux} />
                         </div>
                     </div>
                 </div>
