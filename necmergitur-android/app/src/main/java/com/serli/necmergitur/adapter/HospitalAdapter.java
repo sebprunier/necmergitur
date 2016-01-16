@@ -35,10 +35,19 @@ public class HospitalAdapter extends ArrayAdapter<Hopital> {
 
         if (hospital != null) {
             TextView tt1 = (TextView) v.findViewById(R.id.rowTextView);
-            tt1.setTextColor(Color.DKGRAY);
+            TextView tt2 = (TextView) v.findViewById(R.id.randomTextView);
+
+            tt1.setTextColor(Color.BLACK);
+            tt2.setTextColor(Color.DKGRAY);
             if (tt1 != null) {
                 tt1.setText(hospital.getName());
             }
+            if (tt2 != null) {
+                String leftValue = String.valueOf(hospital.getReveil().nombreLitsOccupes+  hospital.getReveil().nombrePatientsEnRoute);
+                String rightValue = String.valueOf(hospital.getReveil().nombreLitsDisponibles);
+                tt2.setText(String.format("%s / %s", leftValue, rightValue));
+            }
+
         }
 
         return v;
