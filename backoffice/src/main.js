@@ -81,7 +81,9 @@ const App = React.createClass({
                     </Menu>
                 </LeftNav>
 
-                {this.props.children}
+                <div id="main">
+                    {this.props.children}
+                </div>
             </div>
         )
     }
