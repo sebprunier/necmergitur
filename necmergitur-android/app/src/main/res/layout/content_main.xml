@@ -29,106 +29,122 @@
             android:layout_height="wrap_content"
             android:text="UA"
             android:id="@+id/buttonUA"
-            android:enabled="true" />
+            android:enabled="false" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="UR"
             android:id="@+id/buttonUR"
-            android:enabled="false" />
+            android:enabled="true" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.05">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="QRCode"
-            android:id="@+id/textView3"
-            android:layout_gravity="center_vertical" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scan"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Flasher le bracelet du patient"
             android:id="@+id/buttonQRCode"
             android:layout_gravity="center_vertical" />
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Hôpitaux"
-            android:id="@+id/textView2"
-            android:layout_gravity="center_vertical" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choisir un hôpital"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Veuillez saisir l&apos;hôpital du patient"
             android:id="@+id/buttonHospitals"
             android:layout_gravity="center_vertical" />
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.07" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="..."
+            android:id="@+id/textViewHopitalChoisis"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.20">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Saisie"
-            android:id="@+id/textView4"
-            android:layout_gravity="center_vertical" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Saisir"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Description complémentaire concernant le patient"
             android:id="@+id/buttonInput"
             android:layout_gravity="center_vertical" />
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="..."
+            android:id="@+id/textViewInput"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Photos"
-            android:id="@+id/textView5"
-            android:layout_gravity="center_vertical" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Ajouter des photos"
             android:id="@+id/buttonPhotos"
             android:layout_gravity="center_vertical" />
+
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Enregistrer"
-        android:id="@+id/buttonSave"
-        android:layout_gravity="center_horizontal" />
+        android:layout_weight="0.42" >
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/panelPhotos">
+            // all the views currently in your ScrollView
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

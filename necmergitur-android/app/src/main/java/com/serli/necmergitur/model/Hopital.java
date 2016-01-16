@@ -1,14 +1,15 @@
 package com.serli.necmergitur.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Created by florianpires on 16/01/16.
  */
-public class Hopital {
+public class Hopital implements Serializable{
     private String uuid ;
     private String name;
-    private Double[] location;
+    private String location;
     private Jauge reveil;
     private Jauge urgence;
     private boolean active;
@@ -32,11 +33,11 @@ public class Hopital {
         this.name = name;
     }
 
-    public Double[] getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(Double[] location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
@@ -64,7 +65,7 @@ public class Hopital {
         this.active = active;
     }
 
-    public static class Jauge {
+    public static class Jauge implements Serializable {
         public Jauge(int nombreLitsDisponibles, int nombrePatientsEnRoute, int nombreLitsOccupes, String tension) {
             this.nombreLitsDisponibles = nombreLitsDisponibles;
             this.nombrePatientsEnRoute = nombrePatientsEnRoute;

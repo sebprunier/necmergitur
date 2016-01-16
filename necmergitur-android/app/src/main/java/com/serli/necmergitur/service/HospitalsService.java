@@ -12,8 +12,6 @@ import retrofit2.http.GET;
  */
 public interface HospitalsService {
 
-    public static final String ENDPOINT = "https://stub-backend-672.herokuapp.com";
-
     @GET("/api/hopitaux")
     Call<List<Hopital>> getHospitals();
 

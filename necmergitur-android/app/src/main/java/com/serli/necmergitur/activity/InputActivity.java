@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.serli.necmergitur.MainActivity;
 import com.serli.necmergitur.R;
+import com.serli.necmergitur.model.PriseEnCharge;
 import com.serli.necmergitur.utils.ActivityUtils;
 
 import butterknife.Bind;
@@ -28,6 +29,8 @@ public class InputActivity extends Activity {
     @Bind(R.id.editText)
     EditText editText;
 
+    PriseEnCharge priseEnCharge;
+
     @OnClick(R.id.buttonBackInput)
     public void back(){
         ActivityUtils.changeActivity(this, MainActivity.class);
@@ -36,9 +39,9 @@ public class InputActivity extends Activity {
     @OnClick(R.id.buttonSaveInput)
     public void saveInput(){
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-        myIntent.putExtra("content", editText.getText());
+        priseEnCharge.setDescription(editText.getText().toString());
+        myIntent.putExtra(ActivityUtils.PEC, priseEnCharge);
         startActivityForResult(myIntent, 0);
-//        ActivityUtils.changeActivity(this, MainActivity.class);
     }
 
     @Override
@@ -46,6 +49,12 @@ public class InputActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_input);
         ButterKnife.bind(this);
+
+        priseEnCharge = (PriseEnCharge)getIntent().getExtras().get(ActivityUtils.PEC);
+
+        if(priseEnCharge!=null && priseEnCharge.getDescription()!=null){
+            editText.setText(priseEnCharge.getDescription());
+        }
     }
 
 

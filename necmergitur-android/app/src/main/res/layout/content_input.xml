@@ -35,7 +35,9 @@
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/editText"
-                android:hint="Veuillez saisir la description" />
+                android:hint="Veuillez saisir la description"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
 
         </LinearLayout>
 
