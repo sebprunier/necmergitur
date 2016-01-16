@@ -6,7 +6,8 @@ import createHistory from 'history/lib/createHashHistory';
 
 import HopitauxPage from './pages/hopitaux';
 import HopitalPage from './pages/hopital';
-import PostesMedicauxAvances from './pages/postes-medicaux-avances';
+import PostesMedicauxAvancesPage from './pages/postes-medicaux-avances';
+import PosteMedicalAvancePage from './pages/poste-medical-avance';
 import NotFoundPage from './pages/not-found';
 
 import AppBar from 'material-ui/lib/app-bar';
@@ -62,7 +63,7 @@ const App = React.createClass({
         return (
             <div>
                 <AppBar
-                    title="Nec Mergitur - Défi 672"
+                    title="Dispatch Victimes"
                     iconElementRight={<CurrentUser />}
                     onLeftIconButtonTouchTap={this.toggleLeftNavigationPane} />
 
@@ -77,7 +78,7 @@ const App = React.createClass({
                             Hôpitaux
                         </MenuItem>
                         <MenuItem
-                            value="pma"
+                            value="pmas"
                             leftIcon={<FontIcon className="material-icons">healing</FontIcon>}>
                             P.M.A
                         </MenuItem>
@@ -96,8 +97,9 @@ const router = (
     <Router history={createHistory()}>
         <Route path="/" component={App}>
             <IndexRoute component={HopitauxPage} />
-            <Route path="/hopital/:id" component={HopitalPage} />
-            <Route path="/pma" component={PostesMedicauxAvances} />
+            <Route path="/hopitaux/:id" component={HopitalPage} />
+            <Route path="/pmas" component={PostesMedicauxAvancesPage} />
+            <Route path="/pmas/:id" component={PosteMedicalAvancePage} />
             <Route path="*" component={NotFoundPage} />
         </Route>
     </Router>
