@@ -5,6 +5,7 @@ import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Toggle from 'material-ui/lib/toggle';
 import CircularProgress from 'material-ui/lib/circular-progress';
+import Paper from 'material-ui/lib/paper';
 
 import { GoogleMapLoader, GoogleMap, Marker } from "react-google-maps";
 
@@ -22,7 +23,6 @@ const HopitauxPage = React.createClass({
     componentDidMount() {
         axios.get('https://stub-backend-672.herokuapp.com/api/hopitaux')
           .then(response => {
-              console.log(response);
               this.setState({
                   loading: false,
                   hopitaux: response.data
@@ -34,63 +34,94 @@ const HopitauxPage = React.createClass({
           });
     },
 
+    renderTitle() {
+        return (
+            <h1 style={{textAlign: 'center'}}>
+                <FontIcon className="material-icons">local_hospital</FontIcon> Hôpitaux de Paris
+            </h1>
+        )
+    },
+
+    renderTable() {
+        var hopitaux = this.state.hopitaux;
+        return (
+            <div>
+                {hopitaux.map(hopital => { return (
+                    <Paper key={hopital.uuid} zDepth={1} style={{padding: 8}}>
+                        <div className="grid">
+                            <div className="1/2 grid__cell">
+                                <p style={{fontWeight: 'bold'}}>{hopital.name}</p>
+                            </div>
+                            <div className="1/2 grid__cell">
+                                <div style={{float: 'right', marginTop: 16, marginRight: 16}}>
+                                    <Toggle defaultToggled={hopital.active} />
+                                </div>
+                            </div>
+                        </div>
+                    </Paper>
+                )})}
+            </div>
+        )
+    },
+
+    renderMap() {
+        var hopitaux = this.state.hopitaux;
+        return (
+            <section style={{height: "700px"}}>
+              <GoogleMapLoader
+                containerElement={
+                  <div
+                    {...this.props}
+                    style={{
+                      height: "100%",
+                    }}
+                  />
+                }
+                googleMapElement={
+                  <GoogleMap
+                    ref={(map) => console.log(map)}
+                    defaultZoom={12}
+                    defaultCenter={{lat: 48.856638, lng: 2.352241}}>
+                    {hopitaux.map((hopital, index) => {
+                        let marker = {
+                          position: {
+                            lat: hopital.location[0],
+                            lng: hopital.location[1],
+                          },
+                          key: hopital.uuid,
+                          title: hopital.name,
+                          defaultAnimation: 2
+                        }
+                      return (
+                        <Marker {...marker} />
+                      );
+                    })}
+                  </GoogleMap>
+                }
+              />
+            </section>
+        )
+    },
+
     render () {
         if (this.state.loading) {
             return (
                 <div style={{textAlign: 'center'}}>
-                    <h1>
-                        <FontIcon className="material-icons">local_hospital</FontIcon> Hôpitaux de Paris
-                    </h1>
+                    {this.renderTitle()}
                     <CircularProgress mode="indeterminate" />
                 </div>
             )
         } else {
-            var hopitaux = this.state.hopitaux;
+
             return (
                 <div>
-                    <h1 style={{textAlign: 'center'}}>
-                        <FontIcon className="material-icons">local_hospital</FontIcon> Hôpitaux de Paris
-                    </h1>
+                    {this.renderTitle()}
                     <div className="grid">
                         <div className="1/2 grid__cell">
-                            <section style={{height: "700px"}}>
-                              <GoogleMapLoader
-                                containerElement={
-                                  <div
-                                    {...this.props}
-                                    style={{
-                                      height: "100%",
-                                    }}
-                                  />
-                                }
-                                googleMapElement={
-                                  <GoogleMap
-                                    ref={(map) => console.log(map)}
-                                    defaultZoom={12}
-                                    defaultCenter={{lat: 48.856638, lng: 2.352241}}>
-                                    {hopitaux.map((hopital, index) => {
-                                        let marker = {
-                                          position: {
-                                            lat: hopital.location[0],
-                                            lng: hopital.location[1],
-                                          },
-                                          key: hopital.uuid,
-                                          title: hopital.name,
-                                          defaultAnimation: 2
-                                        }
-                                      return (
-                                        <Marker {...marker} />
-                                      );
-                                    })}
-                                  </GoogleMap>
-                                }
-                              />
-                            </section>
+                            {this.renderMap()}
                         </div>
                         <div className="1/2 grid__cell">
-                            <List>
-                                {hopitaux.map(hopital => <ListItem key={hopital.uuid} primaryText={hopital.name} rightToggle={<Toggle defaultToggled={hopital.active} />} />)}
-                            </List>
+                            {this.renderTable()}
                         </div>
                     </div>
                 </div>
