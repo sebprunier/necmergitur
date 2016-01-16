@@ -55,18 +55,6 @@ const hopitaux = [
 ]
 
 const HopitauxPage = React.createClass({
-    getInitialState() {
-        return {
-            markers: [{
-              position: {
-                lat: 25.0112183,
-                lng: 121.52067570000001,
-              },
-              key: "Taiwan",
-              defaultAnimation: 2
-            }]
-        };
-    },
 
     render () {
         return (
@@ -89,12 +77,20 @@ const HopitauxPage = React.createClass({
                             googleMapElement={
                               <GoogleMap
                                 ref={(map) => console.log(map)}
-                                defaultZoom={3}
-                                defaultCenter={{lat: -25.363882, lng: 131.044922}}>
-                                {this.state.markers.map((marker, index) => {
+                                defaultZoom={11}
+                                defaultCenter={{lat: 48.856638, lng: 2.352241}}>
+                                {hopitaux.map((hopital, index) => {
+                                    let marker = {
+                                      position: {
+                                        lat: hopital.location[0],
+                                        lng: hopital.location[1],
+                                      },
+                                      key: hopital.name,
+                                      title: hopital.name,
+                                      defaultAnimation: 2
+                                    }
                                   return (
-                                    <Marker
-                                      {...marker} />
+                                    <Marker {...marker} />
                                   );
                                 })}
                               </GoogleMap>
