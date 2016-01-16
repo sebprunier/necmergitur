@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
@@ -39,21 +41,27 @@ const PatientsList = React.createClass({
         } else {
             return (
                 <div>
-                    {filteredPatients.map(patient => {return (
-                        <Card key={patient.id} style={CardStyle}>
-                            <CardHeader
-                                title={`SINUS n°${patient.id}`}
-                                subtitle={`[ ${patient.gravite} - ${patient.etat} ]`}
-                                avatar={Avatars[patient.etat]}
-                                showExpandableButton={true} />
-                            <CardMedia expandable={true}>
-                                <img src={patient.photos[0]}/>
-                            </CardMedia>
-                            <CardActions>
-                                <FlatButton primary={true} label={ActionLabels[patient.etat]} />
-                            </CardActions>
-                        </Card>
-                    )})}
+                    <ReactCSSTransitionGroup transitionName="patient"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={300}
+                        transitionAppear={true}
+                        transitionAppearTimeout={500}>
+                        {filteredPatients.map(patient => {return (
+                            <Card key={patient.id} style={CardStyle}>
+                                <CardHeader
+                                    title={`SINUS n°${patient.id}`}
+                                    subtitle={`[ ${patient.gravite} - ${patient.etat} ]`}
+                                    avatar={Avatars[patient.etat]}
+                                    showExpandableButton={true} />
+                                <CardMedia expandable={true}>
+                                    <img src={patient.photos[0]}/>
+                                </CardMedia>
+                                <CardActions>
+                                    <FlatButton primary={true} label={ActionLabels[patient.etat]} />
+                                </CardActions>
+                            </Card>
+                        )})}
+                    </ReactCSSTransitionGroup>
                 </div>
             )
         }
