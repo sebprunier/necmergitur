@@ -11,4 +11,6 @@
     <color name="nice_blue">#2196f3</color>
     <color name="nice_blue_pressed">#49b0ff</color>
     <color name="nice_grey">#f1f1f1</color>
+    <color name="nice_green">#009688</color>
+    <color name="nice_green_pressed">#00d6c0</color>
 </resources>
