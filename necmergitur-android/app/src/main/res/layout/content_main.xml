@@ -20,23 +20,30 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:weightSum="1">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="UA"
             android:id="@+id/buttonUA"
-            android:enabled="false" />
+            android:enabled="false"
+            android:layout_weight="0.50"
+            android:background="@color/primary" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="UR"
             android:id="@+id/buttonUR"
-            android:enabled="true" />
+            android:enabled="true"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.50"
+            android:background="@color/primary"
+            android:textColor="#ffffff" />
     </LinearLayout>
 
     <LinearLayout

@@ -1,7 +1,11 @@
 package com.serli.necmergitur;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
@@ -32,6 +36,7 @@ import com.serli.necmergitur.utils.RetrofitSingleton;
 import com.serli.necmergitur.utils.TUtils;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,10 +47,11 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int TEN_MINUTES = 1000 * 60 * 10;
+
     public static final String ENDPOINT = "https://stub-backend-672.herokuapp.com";
 
     private PriseEnChargeService pecService;
-
 
     @Bind(R.id.buttonUA)
     Button buttonUA;
@@ -95,7 +101,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -119,6 +124,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 try {
+                    priseEnCharge.setLocalDateTime(Calendar.getInstance().getTime().toString());
                     Response response = pecService.createPriseEnCharge(priseEnCharge).execute();
                     Log.i("debugcopain",response.message());
                 } catch (IOException e) {
@@ -271,9 +277,32 @@ public class MainActivity extends AppCompatActivity
             StrictMode.setThreadPolicy(policy);
         }
 
-
         // INIT
         pecService = initRetrofitService();
+
+        // Acquire a reference to the system Location Manager
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+// Define a listener that responds to location updates
+        LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                // Called when a new location is found by the network location provider.
+                Log.i("location", "Latitude : " +  String.valueOf(location.getLatitude()) +
+                        " Longitude : " + String.valueOf(location.getLongitude()));
+                priseEnCharge.setLieuPrisEnCharge(String.format("%s,%s",
+                        String.valueOf(location.getLatitude()),
+                        String.valueOf(location.getLongitude())));
+;            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+            public void onProviderEnabled(String provider) {}
+
+            public void onProviderDisabled(String provider) {}
+        };
+
+// Register the listener with the Location Manager to receive location updates
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, TEN_MINUTES, 10, locationListener);
     }
 
     private PriseEnChargeService initRetrofitService(){
