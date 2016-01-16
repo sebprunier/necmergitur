@@ -8,6 +8,7 @@ import HopitauxPage from './pages/hopitaux';
 import HopitalPage from './pages/hopital';
 import NotFoundPage from './pages/not-found';
 
+import AppBar from 'material-ui/lib/app-bar';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Needed for onTouchTap
@@ -22,6 +23,8 @@ const App = React.createClass({
     render () {
         return (
             <div>
+                <AppBar
+                    title="Nec Mergitur - Défi 671" />
                 {this.props.children}
             </div>
         )

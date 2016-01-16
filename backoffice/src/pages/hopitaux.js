@@ -53,7 +53,7 @@ const HopitauxPage = React.createClass({
                     </h1>
                     <div className="grid">
                         <div className="1/2 grid__cell">
-                            <section style={{height: "800px"}}>
+                            <section style={{height: "700px"}}>
                               <GoogleMapLoader
                                 containerElement={
                                   <div
