@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity{
         pecService = initRetrofitService();
         Integer size = 36;
         Drawable qrDraw = new IconicsDrawable(this)
-                .icon(MaterialDesignIconic.Icon.gmi_collection_image_o)
+                .icon(MaterialDesignIconic.Icon.gmi_watch)
                 .color(Color.GRAY)
                 .sizeDp(size);
         Drawable hospitalDraw = new IconicsDrawable(this)

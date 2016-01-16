@@ -8,4 +8,6 @@
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
+    <color name="nice_blue">#2196f3</color>
+    <color name="nice_grey">#f1f1f1</color>
 </resources>
