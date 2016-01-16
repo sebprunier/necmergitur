@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import Paper from 'material-ui/lib/paper';
 import Toggle from 'material-ui/lib/toggle';
+import Badge from 'material-ui/lib/badge';
 
 const HopitauxList = React.createClass({
     render () {

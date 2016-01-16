@@ -18,7 +18,7 @@ const HopitauxMap = React.createClass({
                 }
                 googleMapElement={
                   <GoogleMap
-                    defaultZoom={12}
+                    defaultZoom={11}
                     defaultCenter={{lat: 48.856638, lng: 2.352241}}>
                     {hopitaux.map((hopital, index) => {
                         let coords = hopital.location.split(',');
