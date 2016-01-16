@@ -8,6 +8,7 @@ import HopitalJauge from './hopital-jauge';
 const TensionBackgroundColors = {
     "Vert": Colors.green500,
     "Jaune": Colors.amber500,
+    "Orange": Colors.orange500,
     "Rouge": Colors.red500
 }
 

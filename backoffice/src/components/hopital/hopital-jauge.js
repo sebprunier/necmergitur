@@ -5,6 +5,7 @@ import Colors from 'material-ui/lib/styles/colors';
 const TensionColors = {
     "Vert": Colors.green500,
     "Jaune": Colors.amber500,
+    "Orange": Colors.orange500,
     "Rouge": Colors.red500
 }
 

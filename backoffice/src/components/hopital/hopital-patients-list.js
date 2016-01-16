@@ -15,15 +15,13 @@ const CardStyle = {
 
 const Avatars = {
     "Transport" : <FontIcon className="material-icons">local_taxi</FontIcon>,
-    "Réveil" : <FontIcon className="material-icons">local_hotel</FontIcon>,
-    "Urgence" : <FontIcon className="material-icons">local_hotel</FontIcon>,
+    "Hopital" : <FontIcon className="material-icons">local_hotel</FontIcon>,
     "Sorti" : <FontIcon className="material-icons">directions_walk</FontIcon>
 }
 
 const ActionLabels = {
     "Transport" : "Valider l'arrivée",
-    "Réveil" : "Valider la sortie",
-    "Urgence" : "Valider la sortie",
+    "Hopital" : "Valider la sortie",
     "Sorti" : "Voir l'historique"
 }
 
@@ -32,25 +30,33 @@ const PatientsList = React.createClass({
     render () {
         let patients = this.props.patients;
         let patientsEtatsFilters = this.props.patientsEtatsFilters;
-        return (
-            <div>
-                {patients.map(patient => {if (patientsEtatsFilters[patient.etat]) return (
-                    <Card key={patient.id} style={CardStyle}>
-                        <CardHeader
-                            title={`SINUS n°${patient.id}`}
-                            subtitle={`[${patient.etat}]`}
-                            avatar={Avatars[patient.etat]}
-                            showExpandableButton={true} />
-                        <CardMedia expandable={true}>
-                            <img src={patient.photos[0]}/>
-                        </CardMedia>
-                        <CardActions>
-                            <FlatButton primary={true} label={ActionLabels[patient.etat]} />
-                        </CardActions>
-                    </Card>
-                )})}
-            </div>
-        )
+        let patientsUrgenceFilter = this.props.patientsUrgenceFilter;
+
+        let filteredPatients = patients.filter(patient => patientsEtatsFilters[patient.etat] && patientsUrgenceFilter[patient.gravite]);
+
+        if (filteredPatients.length <= 0) {
+            return <div style={{textAlign: 'center', marginTop: 32}}>Aucune donnée correspondant aux filtres ...</div>
+        } else {
+            return (
+                <div>
+                    {filteredPatients.map(patient => {return (
+                        <Card key={patient.id} style={CardStyle}>
+                            <CardHeader
+                                title={`SINUS n°${patient.id}`}
+                                subtitle={`[ ${patient.gravite} - ${patient.etat} ]`}
+                                avatar={Avatars[patient.etat]}
+                                showExpandableButton={true} />
+                            <CardMedia expandable={true}>
+                                <img src={patient.photos[0]}/>
+                            </CardMedia>
+                            <CardActions>
+                                <FlatButton primary={true} label={ActionLabels[patient.etat]} />
+                            </CardActions>
+                        </Card>
+                    )})}
+                </div>
+            )
+        }
     }
 })
 
