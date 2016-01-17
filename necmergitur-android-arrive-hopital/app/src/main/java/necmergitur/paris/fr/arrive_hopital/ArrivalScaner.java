@@ -7,6 +7,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -35,6 +38,7 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.journeyapps.barcodescanner.CompoundBarcodeView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.squareup.picasso.Picasso;
@@ -55,8 +59,11 @@ import retrofit2.Response;
 public class ArrivalScaner extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final String ENDPOINT = "http://ec2-52-19-51-173.eu-west-1.compute.amazonaws.com:8080";
-//    public static final String ENDPOINT = "https://stub-backend-672.herokuapp.com";
+    //    public static final String ENDPOINT = "https://stub-backend-672.herokuapp.com";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final String DEFAULT_DESCRIPTION = "Description...";
+
+    private static PriseEnCharge staticPriseEnCharge;
 
     @Bind(R.id.qrcode_icon)
     ImageView qrcodeIcon;
@@ -99,7 +106,6 @@ public class ArrivalScaner extends AppCompatActivity
 
     @Bind(R.id.editTextInput)
     public EditText editTextInput;
-
 
     private PriseEnCharge priseEnCharge = null;
 
@@ -148,16 +154,21 @@ public class ArrivalScaner extends AppCompatActivity
 
     @OnClick(R.id.qrcode_icon_big)
     public void onBigScanPressed() {
-        new IntentIntegrator(this).initiateScan();
+        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.initiateScan();
     }
 
     @OnClick(R.id.fab)
     public void onTakeChargeOfButtonPressed() {
         Toast toast = Toast.makeText(getApplicationContext(), "Hopital", Toast.LENGTH_SHORT);
         toast.show();
+//description.getText()==null?"":description.getText().toString()
+        staticPriseEnCharge.setDescription("Description");
+        staticPriseEnCharge.setEtat("Hopital");
+        staticPriseEnCharge.setGravite(radioUA.isChecked()?"UA":"UR");
 
         PriseEnChargeService priseEnChargeService = RetrofitSingleton.INSTANCE.getRetrofit().create(PriseEnChargeService.class);
-        Call<PriseEnCharge> updatPriseEnCharge = priseEnChargeService.update(priseEnCharge);
+        Call<PriseEnCharge> updatPriseEnCharge = priseEnChargeService.update(staticPriseEnCharge);
         try {
             updatPriseEnCharge.execute();
         } catch (IOException e) {
@@ -172,7 +183,12 @@ public class ArrivalScaner extends AppCompatActivity
     public void onEditText() {
         description.setVisibility(View.GONE);
         editText.setVisibility(View.VISIBLE);
-        editTextInput.setText(priseEnCharge.getDescription());
+        if(editText.equals(DEFAULT_DESCRIPTION)){
+            editTextInput.setText("");
+        }else{
+            editTextInput.setText(priseEnCharge.getDescription());
+        }
+
     }
 
     @OnClick(R.id.editTextButton)
@@ -272,6 +288,7 @@ public class ArrivalScaner extends AppCompatActivity
                         this.priseEnCharge.setId(sinus);
                     }else{
                         this.priseEnCharge = fetchedPriseEnCharge;
+                        staticPriseEnCharge = fetchedPriseEnCharge;
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -287,7 +304,13 @@ public class ArrivalScaner extends AppCompatActivity
 //        this.priseEnCharge = priseEnCharge==null?new PriseEnCharge():priseEnCharge;
         patientLayout.setVisibility(View.VISIBLE);
         scannedId.setText("Sinux : " + this.priseEnCharge.getId());
-        description.setText(this.priseEnCharge.getDescription());
+
+        if(this.priseEnCharge.getDescription() == null || "".equals(this.priseEnCharge.getDescription())){
+            description.setText(DEFAULT_DESCRIPTION);
+        }else {
+            description.setText(this.priseEnCharge.getDescription());
+        }
+
         if (this.priseEnCharge.getPhotos() != null) {
             for (String urlPix : this.priseEnCharge.getPhotos()) {
                 ImageView img = new ImageView(this);
@@ -298,8 +321,13 @@ public class ArrivalScaner extends AppCompatActivity
         qrcodeIconBig.setVisibility(View.GONE);
         scanLayout.setVisibility(View.VISIBLE);
 
-        radioUA.setChecked("UA".equals(this.priseEnCharge.getGravite()));
-        radioUR.setChecked("UR".equals(this.priseEnCharge.getGravite()));
+        if("UA".equals(this.priseEnCharge.getGravite())){
+            radioUA.setChecked(true);
+            radioUR.setChecked(false);
+        }else{
+            radioUA.setChecked(false);
+            radioUR.setChecked(true);
+        }
 
         getIntent().putExtra(ActivityUtils.PEC, this.priseEnCharge);
     }
