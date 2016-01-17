@@ -4,6 +4,7 @@
     android:padding="10dp"
     android:textSize="16sp"
     android:orientation="horizontal"
+    android:id="@+id/layoutBackground"
     android:weightSum="1">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"

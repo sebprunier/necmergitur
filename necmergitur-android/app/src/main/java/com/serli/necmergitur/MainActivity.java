@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -34,6 +35,7 @@ import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic
 import com.serli.necmergitur.activity.HospitalsActivity;
 import com.serli.necmergitur.activity.InputActivity;
 import com.serli.necmergitur.model.PriseEnCharge;
+import com.serli.necmergitur.model.TensionColor;
 import com.serli.necmergitur.service.PriseEnChargeService;
 import com.serli.necmergitur.utils.ActivityUtils;
 import com.serli.necmergitur.utils.RetrofitSingleton;
@@ -81,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.buttonUR)
     Button buttonUR;
 
+    @Bind(R.id.layoutQRCode)
+    RelativeLayout layoutQRCode;
+
     @Bind(R.id.textViewInput)
     TextView textViewInput;
 
@@ -107,11 +112,21 @@ public class MainActivity extends AppCompatActivity {
             if (priseEnCharge != null) {
                 if (priseEnCharge.getHopital() != null) {
                     textViewHospital.setText(priseEnCharge.getHopital().getName());
+
+                    String tension = priseEnCharge.getHopital().getReveil().tension;
+                    hospitalIcon.setColorFilter(getResources().getColor(TensionColor.findCode(tension)));
                 }
                 if (priseEnCharge.getDescription() != null) {
                     textViewInput.setText(priseEnCharge.getDescription());
                 }
             }
+        }
+
+        if(!textViewHospital.getText().equals("...")){
+            ((RelativeLayout)textViewHospital.getParent()).setBackgroundColor(getResources().getColor(R.color.nice_grey));
+        }
+        if(!textViewInput.getText().equals("...") || textViewInput.getText().equals("")){
+            ((RelativeLayout)textViewInput.getParent()).setBackgroundColor(getResources().getColor(R.color.nice_grey));
         }
 
         // Button add prise en charge
@@ -266,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 String id = result.getContents();
                 loadData(id);
+                layoutQRCode.setBackgroundColor(getResources().getColor(R.color.nice_grey));
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

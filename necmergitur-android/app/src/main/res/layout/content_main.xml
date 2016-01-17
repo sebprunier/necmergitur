@@ -73,7 +73,7 @@
                     android:layout_alignParentTop="false"
                     android:layout_marginRight="16dp"
                     android:layout_centerInParent="true"
-                    android:layout_marginLeft="140dp" />
+                    android:layout_marginLeft="120dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="10dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="140dp" />
+                    android:layout_marginLeft="130dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="10dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="100dp" />
+                    android:layout_marginLeft="90dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,7 +207,7 @@
                     android:layout_alignParentTop="false"
                     android:layout_marginRight="16dp"
                     android:layout_centerInParent="true"
-                    android:layout_marginLeft="100dp" />
+                    android:layout_marginLeft="80dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
