@@ -33,8 +33,8 @@ const HopitalPage = React.createClass({
     },
 
     loadHopitalInfo() {
-        let url = 'https://stub-backend-672.herokuapp.com/api/hopitaux/' + this.props.params.id;
-        // let url = 'http://ec2-52-19-51-173.eu-west-1.compute.amazonaws.com:8080/LATEST/resources/hopitaux?rs:hopitaUUID=' + this.props.params.id;
+        // let url = 'https://stub-backend-672.herokuapp.com/api/hopitaux/' + this.props.params.id;
+        let url = 'http://ec2-52-19-51-173.eu-west-1.compute.amazonaws.com:8080/LATEST/resources/hopitaux?rs:hopitaUUID=' + this.props.params.id;
         axios.get(url)
           .then(response => {
               this.setState({
@@ -49,8 +49,8 @@ const HopitalPage = React.createClass({
     },
 
     loadPriseEnChargeHopital() {
-        let url = 'https://stub-backend-672.herokuapp.com/api/prises-en-charge/hopital/' + this.props.params.id;
-        // let url = 'http://ec2-52-19-51-173.eu-west-1.compute.amazonaws.com:8080/LATEST/resources/prises-en-charge?rs:hopitalId=' + this.props.params.id;
+        // let url = 'https://stub-backend-672.herokuapp.com/api/prises-en-charge/hopital/' + this.props.params.id;
+        let url = 'http://ec2-52-19-51-173.eu-west-1.compute.amazonaws.com:8080/LATEST/resources/prises-en-charge?rs:hopitalId=' + this.props.params.id;
         axios.get(url)
           .then(response => {
               this.setState({
@@ -69,7 +69,7 @@ const HopitalPage = React.createClass({
         this.loadPriseEnChargeHopital();
 
         // socketio
-        socket.on('connect', () => console.log('CONNECT'));
+        socket.on('connect', () => console.log('SOCKET CONNECTED'));
         socket.on('refresh', this.refresh);
     },
 

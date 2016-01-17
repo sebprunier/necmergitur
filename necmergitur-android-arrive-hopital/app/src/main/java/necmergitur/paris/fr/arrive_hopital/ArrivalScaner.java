@@ -54,7 +54,8 @@ import retrofit2.Response;
 
 public class ArrivalScaner extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public static final String ENDPOINT = "https://stub-backend-672.herokuapp.com";
+    public static final String ENDPOINT = "http://ec2-52-19-51-173.eu-west-1.compute.amazonaws.com:8080";
+//    public static final String ENDPOINT = "https://stub-backend-672.herokuapp.com";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Bind(R.id.qrcode_icon)
@@ -154,6 +155,16 @@ public class ArrivalScaner extends AppCompatActivity
     public void onTakeChargeOfButtonPressed() {
         Toast toast = Toast.makeText(getApplicationContext(), "Hopital", Toast.LENGTH_SHORT);
         toast.show();
+
+        PriseEnChargeService priseEnChargeService = RetrofitSingleton.INSTANCE.getRetrofit().create(PriseEnChargeService.class);
+        Call<PriseEnCharge> updatPriseEnCharge = priseEnChargeService.update(priseEnCharge);
+        try {
+            updatPriseEnCharge.execute();
+        } catch (IOException e) {
+            // TODO : quoi encore???
+            e.printStackTrace();
+        }
+
         resetView();
     }
 
@@ -255,7 +266,13 @@ public class ArrivalScaner extends AppCompatActivity
                 Call<PriseEnCharge> priseEnChargeRequest = priseEnChargeService.findPriseEnCharge(sinus);
                 try {
                     Response<PriseEnCharge> response = priseEnChargeRequest.execute();
-                    this.priseEnCharge = response.body();
+                    PriseEnCharge fetchedPriseEnCharge = response.body();
+                    if(fetchedPriseEnCharge == null){
+                        this.priseEnCharge = new PriseEnCharge();
+                        this.priseEnCharge.setId(sinus);
+                    }else{
+                        this.priseEnCharge = fetchedPriseEnCharge;
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -267,12 +284,12 @@ public class ArrivalScaner extends AppCompatActivity
     }
 
     private void updateViewWithPriseEnCharge(PriseEnCharge priseEnCharge) {
-        this.priseEnCharge = priseEnCharge;
+//        this.priseEnCharge = priseEnCharge==null?new PriseEnCharge():priseEnCharge;
         patientLayout.setVisibility(View.VISIBLE);
-        scannedId.setText("Sinux : " + priseEnCharge.getId());
+        scannedId.setText("Sinux : " + this.priseEnCharge.getId());
         description.setText(this.priseEnCharge.getDescription());
-        if (priseEnCharge.getPhotos() != null) {
-            for (String urlPix : priseEnCharge.getPhotos()) {
+        if (this.priseEnCharge.getPhotos() != null) {
+            for (String urlPix : this.priseEnCharge.getPhotos()) {
                 ImageView img = new ImageView(this);
                 Picasso.with(getApplicationContext()).load(urlPix).into(img);
                 panelPhotos.addView(img);
@@ -281,8 +298,8 @@ public class ArrivalScaner extends AppCompatActivity
         qrcodeIconBig.setVisibility(View.GONE);
         scanLayout.setVisibility(View.VISIBLE);
 
-        radioUA.setChecked("UA".equals(priseEnCharge.getGravite()));
-        radioUR.setChecked("UR".equals(priseEnCharge.getGravite()));
+        radioUA.setChecked("UA".equals(this.priseEnCharge.getGravite()));
+        radioUR.setChecked("UR".equals(this.priseEnCharge.getGravite()));
 
         getIntent().putExtra(ActivityUtils.PEC, this.priseEnCharge);
     }

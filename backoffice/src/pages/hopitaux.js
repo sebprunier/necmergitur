@@ -77,7 +77,7 @@ const HopitauxPage = React.createClass({
     renderTitle() {
         return (
             <h1 style={{textAlign: 'center', marginBottom: 0}}>
-                <FontIcon className="material-icons">local_hospital</FontIcon> Hôpitaux de Paris
+                <FontIcon className="material-icons">local_hospital</FontIcon> Hôpitaux
             </h1>
         )
     },

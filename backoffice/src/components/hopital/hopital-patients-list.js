@@ -53,6 +53,11 @@ const PatientsList = React.createClass({
                                     subtitle={`[ ${patient.gravite} - ${patient.etat} ]`}
                                     avatar={Avatars[patient.etat]}
                                     showExpandableButton={true} />
+                                <CardText expandable={true}>
+                                    <p>
+                                        {patient.description}
+                                    </p>
+                                </CardText>
                                 <CardMedia expandable={true}>
                                     <img src={patient.photos[0]}/>
                                 </CardMedia>
