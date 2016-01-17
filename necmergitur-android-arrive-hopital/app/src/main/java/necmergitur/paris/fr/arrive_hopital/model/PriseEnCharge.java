@@ -1,7 +1,12 @@
 package necmergitur.paris.fr.arrive_hopital.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by florianpires on 16/01/16.
@@ -19,12 +24,12 @@ public class PriseEnCharge implements Serializable {
      * description : Description 2d73cd1a-ae73-4033-9b63-3e573da4643c
      * photos : ["http://www.flixya.com/files-photo/r/i/c/richer-2134233.jpg"]
      */
-
-    private String localDateTime;
-    private String etat;
-    private String lieuPrisEnCharge;
-    private String gravite;
-    private String id;
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    private String localDateTime = dateFormat.format(new Date());
+    private String etat = "Hopital";
+    private String lieuPrisEnCharge = "";
+    private String gravite = "UR";
+    private String id = "";
     /**
      * uuid : 15
      * name : Hôpital Européen Georges-Pompidou
@@ -34,10 +39,10 @@ public class PriseEnCharge implements Serializable {
      * active : true
      */
 
-    private Hopital hopital;
-    private String hopitalUUID;
-    private String description;
-    private List<String> photos;
+    private Hopital hopital = new Hopital();
+    private String hopitalUUID ="";
+    private String description = "";
+    private List<String> photos = new ArrayList<>();
 
     public void setLocalDateTime(String localDateTime) {
         this.localDateTime = localDateTime;
