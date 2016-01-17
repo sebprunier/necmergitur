@@ -92,7 +92,7 @@ const App = React.createClass({
                         <MenuItem
                             value="dashboard"
                             leftIcon={<FontIcon className="material-icons">dashboard</FontIcon>}>
-                            Dashboard
+                            Tableau de bord
                         </MenuItem>
                         <MenuItem
                             value="apropos"

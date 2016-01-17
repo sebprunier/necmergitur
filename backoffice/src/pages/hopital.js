@@ -69,7 +69,7 @@ const HopitalPage = React.createClass({
         this.loadPriseEnChargeHopital();
 
         // socketio
-        socket.on('connect', () => console.log('CONNECT'));
+        socket.on('connect', () => console.log('SOCKET CONNECTED'));
         socket.on('refresh', this.refresh);
     },
 
