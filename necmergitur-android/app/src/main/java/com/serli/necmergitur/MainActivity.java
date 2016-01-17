@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                     priseEnCharge.setHopitalUUID(priseEnCharge.getHopital().getUuid());
                     priseEnCharge.setPhotos(new ArrayList<String>(Arrays.asList(randomValue(PHOTOS))));
                     if(textViewInput.getText()==null) priseEnCharge.setDescription("...");
-                    if(buttonUA.isEnabled()){
+                    if(!buttonUA.isEnabled()){
                         priseEnCharge.setGravite("UA");
                     }else{
                         priseEnCharge.setGravite("UR");
@@ -349,9 +349,8 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        buttonUA.setEnabled(true);
-        buttonUR.setEnabled(false);
-
+        buttonUA.setEnabled(false);
+        buttonUR.setEnabled(true);
         // INIT
         pecService = initRetrofitService();
         Integer size = 36;
