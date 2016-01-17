@@ -1,6 +1,10 @@
 package com.serli.necmergitur.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,11 +25,12 @@ public class PriseEnCharge implements Serializable{
      * photos : ["http://www.flixya.com/files-photo/r/i/c/richer-2134233.jpg"]
      */
 
-    private String localDateTime;
-    private String etat;
-    private String lieuPrisEnCharge;
-    private String gravite;
-    private String id;
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    private String localDateTime = dateFormat.format(new Date());
+    private String etat = "Hopital";
+    private String lieuPrisEnCharge = "";
+    private String gravite = "UA";
+    private String id = "";
     /**
      * uuid : 15
      * name : Hôpital Européen Georges-Pompidou
@@ -35,10 +40,10 @@ public class PriseEnCharge implements Serializable{
      * active : true
      */
 
-    private Hopital hopital;
-    private String hopitalUUID;
-    private String description;
-    private List<String> photos;
+    private Hopital hopital = new Hopital();
+    private String hopitalUUID ="";
+    private String description = "...";
+    private List<String> photos = new ArrayList<>();
 
 
     public PriseEnCharge() {

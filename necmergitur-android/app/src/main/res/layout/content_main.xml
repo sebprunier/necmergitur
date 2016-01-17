@@ -62,8 +62,8 @@
                 android:padding="16dp"
                 android:id="@+id/layoutQRCode"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp">
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -99,8 +99,10 @@
                 android:layout_height="80dp"
                 android:padding="5dp"
                 android:id="@+id/layoutHopital"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp">>
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="0dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -148,8 +150,8 @@
                 android:layout_height="80dp"
                 android:padding="5dp"
                 android:id="@+id/layoutInput"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp">
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -190,8 +192,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="15dp" />
+                android:background="@android:color/darker_gray" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -40,7 +40,7 @@ public class HospitalAdapter extends ArrayAdapter<Hopital> {
             LinearLayout ll = (LinearLayout) v.findViewById(R.id.layoutBackground);
 
             tt1.setTextColor(Color.BLACK);
-            tt2.setTextColor(Color.DKGRAY);
+            tt2.setTextColor(Color.WHITE);
             if (tt1 != null) {
                 tt1.setText(hospital.getName());
             }

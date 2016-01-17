@@ -77,11 +77,12 @@ public class HospitalsActivity extends Activity {
         Response response = null;
         try {
             response = call.execute();
+            hospitals =  (List<Hopital>) response.body();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        hospitals =  (List<Hopital>) response.body();
+
 
         listAdapter = new HospitalAdapter(getApplicationContext(),R.layout.simplerow);
         listAdapter.addAll(hospitals);

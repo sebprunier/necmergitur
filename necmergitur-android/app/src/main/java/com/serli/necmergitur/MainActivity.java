@@ -46,6 +46,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
@@ -65,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public static final String ENDPOINT = "http://ec2-52-19-51-173.eu-west-1.compute.amazonaws.com:8080";
+
+    private final static String[] PHOTOS = {
+            "http://f.hypotheses.org/wp-content/blogs.dir/855/files/2015/07/L%C3%A9onard-de-Vinci-Anatomie-672x372.jpg",
+            "http://www.atlantico.fr/sites/atlantico.fr/files/styles/une/public/images/2014/04/vitruve_de_leonard_de_vinci.jpg",
+            "https://s-media-cache-ak0.pinimg.com/736x/45/60/d3/4560d3b309968a340e31ef54da36e4fe.jpg"
+    };
 
     private PriseEnChargeService pecService;
 
@@ -95,7 +102,16 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.panelPhotos)
     LinearLayout panelPhotos;
 
-    private PriseEnCharge priseEnCharge;
+    @Bind(R.id.layoutHopital)
+    RelativeLayout layoutHopital;
+
+    @Bind(R.id.layoutInput)
+    RelativeLayout layoutInput;
+
+    @Bind(R.id.layoutPhotos)
+    RelativeLayout layoutPhotos;
+
+    private PriseEnCharge priseEnCharge= new PriseEnCharge();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         init();
-
-        priseEnCharge = new PriseEnCharge();
         priseEnCharge.setGravite("UA");
         if (getIntent().getExtras() != null) {
             priseEnCharge = (PriseEnCharge) getIntent().getExtras().get(ActivityUtils.PEC);
@@ -123,10 +137,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(!textViewHospital.getText().equals("...")){
-            ((RelativeLayout)textViewHospital.getParent()).setBackgroundColor(getResources().getColor(R.color.nice_grey));
+//         layoutHopital.setBackgroundColor(getResources().getColor(R.color.nice_grey));
         }
         if(!textViewInput.getText().equals("...") || textViewInput.getText().equals("")){
-            ((RelativeLayout)textViewInput.getParent()).setBackgroundColor(getResources().getColor(R.color.nice_grey));
+//            layoutInput.setBackgroundColor(getResources().getColor(R.color.nice_grey));
         }
 
         // Button add prise en charge
@@ -140,18 +154,25 @@ public class MainActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = String.valueOf(new Random().nextInt((1000 - 20) + 1) + 20);
-                priseEnCharge.setId(id);
+//                if(priseEnCharge.getId()!=null && !priseEnCharge.getId().isEmpty()) {
+//                    String id = String.valueOf(new Random().nextInt((1000 - 20) + 1) + 20);
+//                    priseEnCharge.setId(id);
+//                }
                 priseEnCharge.setEtat("Transport");
 
                 GregorianCalendar c = new GregorianCalendar();
                 c.setTime(c.getTime());
                 try {
-
                     String dateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date());
                     priseEnCharge.setLocalDateTime(dateTime);
                     priseEnCharge.setHopitalUUID(priseEnCharge.getHopital().getUuid());
-                    priseEnCharge.setPhotos(new ArrayList<String>());
+                    priseEnCharge.setPhotos(new ArrayList<String>(Arrays.asList(randomValue(PHOTOS))));
+                    if(textViewInput.getText()==null) priseEnCharge.setDescription("...");
+                    if(buttonUA.isEnabled()){
+                        priseEnCharge.setGravite("UA");
+                    }else{
+                        priseEnCharge.setGravite("UR");
+                    }
                     Response response = pecService.createPriseEnCharge(priseEnCharge).execute();
                     Log.i("response", response.body().toString());
                 } catch (IOException e) {
@@ -170,14 +191,14 @@ public class MainActivity extends AppCompatActivity {
     public void clickUA() {
         buttonUR.setEnabled(true);
         buttonUA.setEnabled(false);
-        priseEnCharge.setGravite("UA");
+        if(priseEnCharge!=null) priseEnCharge.setGravite("UA");
     }
 
     @OnClick(R.id.buttonUR)
     public void clickUR() {
         buttonUR.setEnabled(false);
         buttonUA.setEnabled(true);
-        priseEnCharge.setGravite("UR");
+        if(priseEnCharge!=null)  priseEnCharge.setGravite("UR");
     }
 
     @OnClick(R.id.layoutQRCode)
@@ -206,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
         dispatchTakePictureIntent();
     }
 
-    private void loadData(String id) {
+    private PriseEnCharge  loadData(String id) {
         Response response = null;
         panelPhotos.removeAllViews();
         try {
@@ -222,6 +243,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (pecFound.getHopital() != null) {
                     textViewHospital.setText(pecFound.getHopital().getName());
+                    if(pecFound.getHopital().getReveil()!=null) {
+                        String tension = pecFound.getHopital().getReveil().tension;
+                        hospitalIcon.setColorFilter(getResources().getColor(TensionColor.findCode(tension)));
+                    }
                 }
                 if (pecFound.getDescription() != null) {
                     textViewInput.setText(pecFound.getDescription());
@@ -233,11 +258,21 @@ public class MainActivity extends AppCompatActivity {
                         panelPhotos.addView(img);
                     }
                 }
+                return pecFound;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        PriseEnCharge prise = new PriseEnCharge();
+        prise.setId(id);
+        if(buttonUA.isEnabled()){
+            prise.setGravite("UA");
+        }else{
+            prise.setGravite("UR");
+        }
+
+        return prise;
     }
 
 
@@ -280,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MainActivity", "Cancelled scan");
             } else {
                 String id = result.getContents();
-                loadData(id);
+                priseEnCharge = loadData(id);
                 layoutQRCode.setBackgroundColor(getResources().getColor(R.color.nice_grey));
             }
         } else {
@@ -294,6 +329,10 @@ public class MainActivity extends AppCompatActivity {
         textViewHospital.setText(defaultText);
         panelPhotos.removeAllViews();
         buttonUA.callOnClick();
+        layoutHopital.setBackgroundColor(Color.WHITE);
+        layoutQRCode.setBackgroundColor(Color.WHITE);
+        layoutPhotos.setBackgroundColor(Color.WHITE);
+        layoutInput.setBackgroundColor(Color.WHITE);
     }
 
     private void dispatchTakePictureIntent() {
@@ -309,6 +348,9 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
+        buttonUA.setEnabled(true);
+        buttonUR.setEnabled(false);
 
         // INIT
         pecService = initRetrofitService();
@@ -343,10 +385,12 @@ public class MainActivity extends AppCompatActivity {
                 // Called when a new location is found by the network location provider.
                 Log.i("location", "Latitude : " + String.valueOf(location.getLatitude()) +
                         " Longitude : " + String.valueOf(location.getLongitude()));
-                priseEnCharge.setLieuPrisEnCharge(String.format("%s,%s",
-                        String.valueOf(location.getLatitude()),
-                        String.valueOf(location.getLongitude())));
-                ;
+                if(priseEnCharge!=null) {
+                    priseEnCharge.setLieuPrisEnCharge(String.format("%s,%s",
+                            String.valueOf(location.getLatitude()),
+                            String.valueOf(location.getLongitude())));
+                    ;
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -378,4 +422,9 @@ public class MainActivity extends AppCompatActivity {
     private PriseEnChargeService initRetrofitService(){
         return RetrofitSingleton.INSTANCE.getRetrofit().create(PriseEnChargeService.class);
     }
+
+    private static <T> T randomValue(T[] strings) {
+        return strings[(int) (Math.random() * strings.length)];
+    }
+
 }

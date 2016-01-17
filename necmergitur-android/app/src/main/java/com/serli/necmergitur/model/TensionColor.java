@@ -30,6 +30,6 @@ public enum TensionColor {
         for(TensionColor tensionColor :TensionColor.values()){
             if(tension.equals(tensionColor.getCouleur())) return tensionColor.getCode();
         }
-        return null;
+        return Color.WHITE;
     }
 }
