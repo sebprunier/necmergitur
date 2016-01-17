@@ -9,6 +9,7 @@ import HopitalPage from './pages/hopital';
 import PostesMedicauxAvancesPage from './pages/postes-medicaux-avances';
 import PosteMedicalAvancePage from './pages/poste-medical-avance';
 import DashboardPage from './pages/dashboard';
+import AProposPage from './pages/apropos';
 import NotFoundPage from './pages/not-found';
 
 import AppBar from 'material-ui/lib/app-bar';
@@ -93,6 +94,11 @@ const App = React.createClass({
                             leftIcon={<FontIcon className="material-icons">dashboard</FontIcon>}>
                             Dashboard
                         </MenuItem>
+                        <MenuItem
+                            value="apropos"
+                            leftIcon={<FontIcon className="material-icons">infos</FontIcon>}>
+                            A propos
+                        </MenuItem>
                     </Menu>
                 </LeftNav>
 
@@ -112,6 +118,7 @@ const router = (
             <Route path="/pmas" component={PostesMedicauxAvancesPage} />
             <Route path="/pmas/:id" component={PosteMedicalAvancePage} />
             <Route path="/dashboard" component={DashboardPage} />
+            <Route path="/apropos" component={AProposPage} />
             <Route path="*" component={NotFoundPage} />
         </Route>
     </Router>
