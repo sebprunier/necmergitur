@@ -8,6 +8,7 @@ import HopitauxPage from './pages/hopitaux';
 import HopitalPage from './pages/hopital';
 import PostesMedicauxAvancesPage from './pages/postes-medicaux-avances';
 import PosteMedicalAvancePage from './pages/poste-medical-avance';
+import DashboardPage from './pages/dashboard';
 import NotFoundPage from './pages/not-found';
 
 import AppBar from 'material-ui/lib/app-bar';
@@ -15,6 +16,7 @@ import LeftNav from 'material-ui/lib/left-nav';
 import Menu from 'material-ui/lib/menus/menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FontIcon from 'material-ui/lib/font-icon';
+import Divider from 'material-ui/lib/divider';
 
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import CustomTheme from './theme/theme'
@@ -71,6 +73,9 @@ const App = React.createClass({
                     open={this.state.leftNavigationPaneOpened}
                     onRequestChange={this.handleLeftNavigationPaneStateChange}
                     docked={false}>
+                    <div>
+                        <img src="./img/hackathon.png" style={{width: '100%'}}/>
+                    </div>
                     <Menu valueLink={{requestChange: this.handleLeftNavigationItemClick}}>
                         <MenuItem
                             value="/"
@@ -81,6 +86,12 @@ const App = React.createClass({
                             value="pmas"
                             leftIcon={<FontIcon className="material-icons">healing</FontIcon>}>
                             P.M.A
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem
+                            value="dashboard"
+                            leftIcon={<FontIcon className="material-icons">dashboard</FontIcon>}>
+                            Dashboard
                         </MenuItem>
                     </Menu>
                 </LeftNav>
@@ -100,6 +111,7 @@ const router = (
             <Route path="/hopitaux/:id" component={HopitalPage} />
             <Route path="/pmas" component={PostesMedicauxAvancesPage} />
             <Route path="/pmas/:id" component={PosteMedicalAvancePage} />
+            <Route path="/dashboard" component={DashboardPage} />
             <Route path="*" component={NotFoundPage} />
         </Route>
     </Router>
